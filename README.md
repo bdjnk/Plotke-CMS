@@ -1,4 +1,4 @@
 Plotke-CMS
 ==========
 
-A simple CMS
+Aesthetic CMS with simple interface
