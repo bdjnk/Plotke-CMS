@@ -32,7 +32,7 @@ if (!function_exists('get_posts'))
 				post.title,
 				post.abstract,
 				post.content,
-				author.author_id,
+				author.id,
 				author.name
 			FROM
 				post,
@@ -42,7 +42,7 @@ if (!function_exists('get_posts'))
 				AND
 				author.name LIKE '%$author%'
 				AND
-				post.author_id = author.author_id
+				post.author_id = author.id
 			ORDER BY
 				$sort, time_published
 			LIMIT
@@ -55,4 +55,49 @@ if (!function_exists('get_posts'))
 	}
 }
 
+if (!function_exists('get_pages'))
+{
+	function get_pages()
+	{
+		$db = opendb();
+		$query = "
+			SELECT
+				category.id,
+				category.title,
+				page.category_id,
+				page.id as page_id,
+				page.short_title,
+				page.long_title,
+				page.description
+			FROM
+				page,
+				category
+			WHERE
+				category.id = page.category_id
+			ORDER BY
+				category.title,
+				page.short_title
+		";
+		if ($result = $db->query($query))
+		{
+			/*
+			$testing = array();
+			while ($row = $result->fetch_assoc())
+			{
+				$testing[$row['page_id']] = array(
+					'title' => $row['title'],
+					'short_title' => $row['short_title'],
+					'long_title' => $row['long_title'],
+					'description' => $row['description']);
+			}
+			*/
+			return $result;
+		}
+	}
+}
+
+function debugVar($var, $desc)
+{
+	echo "\n<!--\n".print_r($cats, true)."\n-->\n";
+}
 ?>

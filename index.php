@@ -47,43 +47,24 @@ function menuHide(idOne,idTwo,idThree) {
   </div>
   
   <div class="spacer"></div>
-  
-  <div class="navbox">
-    <div class="menu"><a href="index.html">Site News</a></div>
-    <div class="menuspacer"></div>
+
+	<div class="navbox">
+		<?php $result = get_pages(); $pt = "zxzx"; while ($row = $result->fetch_assoc()) { $t = $row['title']; if ($t == "") { ?>
+		<div class="menu"><a href="javascript:;"><?php echo $row['short_title']; ?></a></div>
+		<div class="menuspacer"></div>
+		<?php } else { $s = $row['short_title']; if ($pt != $t) { if ($pt != "") { ?>
+    </dl>
+		<div class="menuspacer"></div>
+		<?php } ?>
     <div class="menu">
-      <a onclick="menuFunc('LinuxMenu','LinuxArrow')" href="javascript:;"><img class="arrow" id="LinuxArrow" src="images/arrow1.gif" alt="menu arrow">Linux</a>
-    </div>
+			<a onclick="menuFunc('LinuxMenu','LinuxArrow')" href="javascript:;">
+			<img class="arrow" id="LinuxArrow" src="images/arrow1.gif" alt="menu arrow"><?php echo $t ?></a>
+		</div>
     <dl id="LinuxMenu" class="hide">
-      <dt class="submenu"><a onclick="noPage()" href="javascript:;">PCLinuxOS</a></dt>
-      <dt class="submenu"><a onclick="noPage()" href="arch.html">Arch Linux</a></dt>
-      <dt class="submenu"><a href="packages.html">RPMs</a></dt>
-    </dl>
-    <div class="menuspacer"></div>
-    <div class="menu">
-      <a onclick="menuFunc('CodeMenu','CodeArrow')" href="javascript:;"><img class="arrow" id="CodeArrow" src="images/arrow1.gif" alt="menu arrow">Code</a>
-    </div>
-    <dl id="CodeMenu" class="hide">
-      <dt class="submenu"><a onclick="noPage()" href="javascript:;">Python</a></dt>
-      <dt class="submenu"><a onclick="noPage()" href="javascript:;">CSS</a></dt>
-      <dt class="submenu"><a onclick="noPage()" href="javascript:;">JavaScript</a></dt>
-    </dl>
-    <div class="menuspacer"></div>
-    <div class="menu">
-      <a onclick="menuFunc('AdviceMenu','AdviceArrow')" href="javascript:;"><img class="arrow" id="AdviceArrow" src="images/arrow1.gif" alt="menu arrow">Advice</a>
-    </div>
-    <dl id="AdviceMenu" class="hide">
-      <dt class="submenu"><a onclick="noPage()" href="javascript:;">Websites</a></dt>
-      <dt class="submenu"><a onclick="noPage()" href="javascript:;">Software</a></dt>
-      <dt class="submenu"><a onclick="noPage()" href="javascript:;">Books</a></dt>
-    </dl>
-    <div class="menuspacer"></div>
-    <div class="menu">
-      <a onclick="menuFunc('CollegeMenu','CollegeArrow')" href="javascript:;"><img class="arrow" id="CollegeArrow" src="images/arrow1.gif" alt="menu arrow">College</a>
-    </div>
-    <dl id="CollegeMenu" class="hide">
-      <dt class="submenu"><a href="phys221.html">Physics 221</a></dt>
-    </dl>
+			<dt class="submenu"><a href="javascript:;"><?php echo $s; ?></a></dt>
+		<?php } else { ?>
+			<dt class="submenu"><a href="javascript:;"><?php echo $s; ?></a></dt>
+		<?php } } $pt = $t; } ?>
   </div>
   
 	<div class="contentbox">
