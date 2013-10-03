@@ -19,6 +19,45 @@ if (!function_exists('opendb'))
 	}
 }
 
+if (!function_exists('get_page'))
+{
+	function get_page($page)
+	{
+		$db = opendb();
+		$query = "SELECT long_title, description FROM page WHERE id = '$page'";
+		if ($result = $db->query($query))
+		{
+			return $result;
+		}
+	}
+}
+
+if (!function_exists('get_pages'))
+{
+	function get_pages()
+	{
+		$db = opendb();
+		$query = "
+			SELECT
+				category.title,
+				page.id,
+				page.short_title
+			FROM
+				page,
+				category
+			WHERE
+				category.id = page.category_id
+			ORDER BY
+				category.title,
+				page.short_title
+		";
+		if ($result = $db->query($query))
+		{
+			return $result;
+		}
+	}
+}
+
 if (!function_exists('get_posts'))
 {
 	function get_posts($page, $start = 0, $count = 10, $sort = "NULL", $author = "")
@@ -27,12 +66,9 @@ if (!function_exists('get_posts'))
 		$query = "
 			SELECT
 				UNIX_TIMESTAMP(post.time_published) as time_published,
-				post.page_id,
-				post.author_id,
+				post.id,
 				post.title,
 				post.abstract,
-				post.content,
-				author.id,
 				author.name
 			FROM
 				post,
@@ -55,49 +91,8 @@ if (!function_exists('get_posts'))
 	}
 }
 
-if (!function_exists('get_pages'))
-{
-	function get_pages()
-	{
-		$db = opendb();
-		$query = "
-			SELECT
-				category.id,
-				category.title,
-				page.category_id,
-				page.id as page_id,
-				page.short_title,
-				page.long_title,
-				page.description
-			FROM
-				page,
-				category
-			WHERE
-				category.id = page.category_id
-			ORDER BY
-				category.title,
-				page.short_title
-		";
-		if ($result = $db->query($query))
-		{
-			/*
-			$testing = array();
-			while ($row = $result->fetch_assoc())
-			{
-				$testing[$row['page_id']] = array(
-					'title' => $row['title'],
-					'short_title' => $row['short_title'],
-					'long_title' => $row['long_title'],
-					'description' => $row['description']);
-			}
-			*/
-			return $result;
-		}
-	}
-}
-
 function debugVar($var, $desc)
 {
-	echo "\n<!--\n".print_r($cats, true)."\n-->\n";
+	echo "\n<!-- $desc\n".print_r($var, true)."\n-->\n";
 }
 ?>
