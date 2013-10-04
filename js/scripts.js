@@ -14,6 +14,13 @@ function menuFunc(menuId, arrowId) {
   }
 }
 
+var editable = document.getElementsByClassName('edit');
+for (var i = 0; i < editable.length; i++)
+{
+	editable[i].ondblclick = edit;
+	editable[i].onblur = save;
+}
+
 function wink()
 {
 	document.getElementById('winkeye').innerHTML="&nbsp;-";

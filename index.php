@@ -34,8 +34,8 @@ include("/usr/share/webapps/Plotke-CMS/lib/mysql.php"); ?>
 	<div class="titlebox">
 	<?php $result = get_info(0);
 	if ($row = $result->fetch_assoc()) { ?>
-		<span class="i-text" id="title"><?php echo $row['long_title'] ?></span><br>
-		<span class="i-text" id="subtitle"><?php echo $row['description'] ?></span>
+		<span class="edit text" id="title"><?php echo $row['long_title'] ?></span><br>
+		<span class="edit text" id="subtitle"><?php echo $row['description'] ?></span>
 	<?php } ?>
   </div>
   
@@ -48,7 +48,7 @@ include("/usr/share/webapps/Plotke-CMS/lib/mysql.php"); ?>
 	while ($row = $result->fetch_assoc()) {
 		$cat = $row['title'];
 		if ($cat == "") { ?>
-		<div class="menu i-text"><a href="javascript:;"><?php echo $row['short_title']; ?></a></div>
+		<div class="menu edit text"><a href="javascript:;"><?php echo $row['short_title']; ?></a></div>
 		<div class="menuspacer"></div>
 		<?php
 		} else {
@@ -58,14 +58,14 @@ include("/usr/share/webapps/Plotke-CMS/lib/mysql.php"); ?>
     </dl>
 		<div class="menuspacer"></div>
 		<?php } ?>
-    <div class="menu">
+    <div class="menu edit text">
 			<a onclick="menuFunc('<?php echo $row['cat']; ?>Menu','<?php echo $row['cat']; ?>Arrow')" href="javascript:;">
 			<img class="arrow" id="<?php echo $row['cat']; ?>Arrow" src="images/arrow1.gif" alt="menu arrow"><?php echo $cat ?></a>
 		</div>
     <dl id="<?php echo $row['cat']; ?>Menu" class="hide">
-			<dt class="submenu"><a href="javascript:;"><?php echo $page."jim"; ?></a></dt>
+			<dt class="submenu edit text"><a href="javascript:;"><?php echo $page; ?></a></dt>
 		<?php } else { ?>
-			<dt class="submenu"><a href="javascript:;"><?php echo $page."bob"; ?></a></dt>
+			<dt class="submenu edit text"><a href="javascript:;"><?php echo $page; ?></a></dt>
 	<?php } } $pcat = $cat; } ?>
   </div>
   
@@ -73,10 +73,10 @@ include("/usr/share/webapps/Plotke-CMS/lib/mysql.php"); ?>
 		<?php $result = get_posts(0);
 		while ($row = $result->fetch_assoc()) {
 		$info = strftime("%Y, %B %d at %R", $row['time_published'])." by ".$row['name']; ?>
-		<div class="contenttitle i-text" id="<?php echo $row['id'] ?>" title="<?php echo $info; ?>">
+		<div class="contenttitle edit text" id="<?php echo $row['id'] ?>" title="<?php echo $info; ?>">
 			<?php echo $row['title']; ?>
     </div>
-    <div class="contenttext i-html">
+    <div class="contenttext edit html">
 			<?php echo $row['abstract']; ?>
 		</div>
 		<?php } ?>
