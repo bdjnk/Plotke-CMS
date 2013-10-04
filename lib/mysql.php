@@ -21,7 +21,7 @@ if (!function_exists('opendb'))
 
 if (!function_exists('get_page'))
 {
-	function get_page($page)
+	function get_info($page)
 	{
 		$db = opendb();
 		$query = "SELECT long_title, description FROM page WHERE id = '$page'";
@@ -39,6 +39,7 @@ if (!function_exists('get_pages'))
 		$db = opendb();
 		$query = "
 			SELECT
+				category.id as cat,
 				category.title,
 				page.id,
 				page.short_title

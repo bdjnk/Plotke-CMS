@@ -1,29 +1,21 @@
-function menuFunc (idOne,idTwo) {
-  var idCurrent = document.getElementById(idOne);
-  var srcCurrent = document.getElementById(idTwo);
+function menuFunc(menuId, arrowId) {
+  var menu = document.getElementById(menuId);
+  var arrow = document.getElementById(arrowId);
 
-  switch (idCurrent.className) {
+  switch (menu.className) {
     case ('show'):
-      idCurrent.className = 'hide';
+      menu.className = 'hide';
+			arrow.src = 'images/arrow1.gif';
       break;
     case ('hide'):
-      idCurrent.className = 'show';
+      menu.className = 'show';
+			arrow.src = 'images/arrow2.gif';
       break;
   }
-
-  srcSwap('1','2');
-  function srcSwap(right,down) {
-    var arrow = ((srcCurrent.src.match(right) != null)? down : right);
-    setTimeout("document.getElementById('"+idTwo+"').src = 'images/arrow"+arrow+".gif'",1);
-  }
-}
-
-function noPage() {
-  alert('This page does not exist yet.');
 }
 
 function wink()
 {
-document.getElementById('winkeye').innerHTML="&nbsp;-";
-var unwink=setTimeout("document.getElementById('winkeye').innerHTML='o'",290);
+	document.getElementById('winkeye').innerHTML="&nbsp;-";
+	var unwink=setTimeout("document.getElementById('winkeye').innerHTML='o'",290);
 }

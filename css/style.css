@@ -111,7 +111,7 @@ div.contentspacer {
   background: #ccc;
   height: 10px;
 }
-div.contenttxt {
+div.contenttext {
   background: #ccc;
   /*padding-left: 10px;*/
   display: block;
@@ -122,7 +122,7 @@ div.contenttxt {
   position: relative;
   color: #000;
 }
-div.contenttxt a { font-weight: bold; }
+div.contenttext a { font-weight: bold; }
 
 ul.regular {
   list-style-type: none;
