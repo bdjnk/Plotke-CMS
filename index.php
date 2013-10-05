@@ -18,8 +18,6 @@ include("/usr/share/webapps/Plotke-CMS/lib/mysql.php"); ?>
 <style type="text/css">
 </style>
 
-<script type="text/javascript" src="js/scripts.js"></script>
-
 <!--for page specific script-->
 <script type="text/javascript"><!--
 --></script>
@@ -59,7 +57,7 @@ include("/usr/share/webapps/Plotke-CMS/lib/mysql.php"); ?>
 		<div class="menuspacer"></div>
 		<?php } ?>
     <div class="menu edit text">
-			<a onclick="menuFunc('<?php echo $row['cat']; ?>Menu','<?php echo $row['cat']; ?>Arrow')" href="javascript:;">
+			<a onclick="menu('<?php echo $row['cat']; ?>Menu','<?php echo $row['cat']; ?>Arrow')" href="javascript:;">
 			<img class="arrow" id="<?php echo $row['cat']; ?>Arrow" src="images/arrow1.gif" alt="menu arrow"><?php echo $cat ?></a>
 		</div>
     <dl id="<?php echo $row['cat']; ?>Menu" class="hide">
@@ -95,6 +93,8 @@ include("/usr/share/webapps/Plotke-CMS/lib/mysql.php"); ?>
   </div>
 
 </div>
+
+<script type="text/javascript" src="js/scripts.js"></script>
 
 </body>
 </html>
