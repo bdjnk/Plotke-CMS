@@ -18,45 +18,52 @@ function menu(menuId, arrowId)
 
 var html;
 var text;
+var undo;
 
-function done()
+function preview()
 {
-	var fresh;
 	if (this.tagName == "INPUT")
 	{
-		fresh = this.value;
-		//this.textContent = text;
+		if (undo == 0)
+		{
+			this.parentNode.innerHTML = this.value;
+		} else
+		if (undo == 1)
+		{
+			changed = this.parentNode;
+			changed.innerHTML = html;
+			var alter = changed.getElementsByClassName("alter")[0];
+			alter.innerHTML = this.value;
+		}
+		else { alert("too many alters, inform your system admin."); }
 	} else
 	if (this.tagName == "TEXTAREA")
 	{
-		fresh = this.textContent.trim();
+		this.parentNode.innerHTML = this.value;
 	}
-		this.parentNode.innerHTML = fresh;
 }
 
-function click(e)
+function edit()
 {
-	//if (!e.ctrlKey) { return; }
+	undo = this.getElementsByClassName("alter").length;
 	html = this.innerHTML.trim();
 	text = this.textContent.trim();
-	//alert(html+"\n"+text);
 	if (hasClass(this, "text"))
 	{
-		this.innerHTML = "<input style='width:100%' type='text' value='"+text+"'>";
+		this.innerHTML = "<input style='width: 100%' type='text' value='"+text+"'>";
 	} else
 	if (hasClass(this, "html"))
 	{
 		this.innerHTML = "<textarea rows='10' style='width:100%'>"+html+"</textarea>";
 	}
 	this.firstChild.focus();
-	this.firstChild.onblur = done;
+	this.firstChild.onblur = preview;
 }
 
 var editable = document.getElementsByClassName('edit');
 for (var i = 0; i < editable.length; i++)
 {
-	editable[i].ondblclick = click;
-	//editable[i].onblur = done;
+	editable[i].ondblclick = edit;
 }
 
 function wink()

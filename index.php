@@ -32,8 +32,8 @@ include("/usr/share/webapps/Plotke-CMS/lib/mysql.php"); ?>
 	<div class="titlebox">
 	<?php $result = get_info(0);
 	if ($row = $result->fetch_assoc()) { ?>
-		<span class="edit text" id="title"><?php echo $row['long_title'] ?></span><br>
-		<span class="edit text" id="subtitle"><?php echo $row['description'] ?></span>
+		<div class="edit text" id="title"><?php echo $row['long_title'] ?></div><br>
+		<div class="edit text" id="subtitle"><?php echo $row['description'] ?></div>
 	<?php } ?>
   </div>
   
@@ -58,7 +58,8 @@ include("/usr/share/webapps/Plotke-CMS/lib/mysql.php"); ?>
 		<?php } ?>
     <div class="menu edit text">
 			<a onclick="menu('<?php echo $row['cat']; ?>Menu','<?php echo $row['cat']; ?>Arrow')" href="javascript:;">
-			<img class="arrow" id="<?php echo $row['cat']; ?>Arrow" src="images/arrow1.gif" alt="menu arrow"><?php echo $cat ?></a>
+			<img class="arrow" id="<?php echo $row['cat']; ?>Arrow" src="images/arrow1.gif" alt="menu arrow">
+			<span class="alter"><?php echo $cat ?></span></a>
 		</div>
     <dl id="<?php echo $row['cat']; ?>Menu" class="hide">
 			<dt class="submenu edit text"><a href="javascript:;"><?php echo $page; ?></a></dt>
