@@ -95,6 +95,7 @@ include("/usr/share/webapps/Plotke-CMS/lib/mysql.php"); ?>
 
 </div>
 
+<script type="text/javascript" src="js/jquery.js"></script>
 <script type="text/javascript" src="js/scripts.js"></script>
 
 </body>

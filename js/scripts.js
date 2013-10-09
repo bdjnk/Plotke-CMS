@@ -50,17 +50,17 @@ function edit()
 	text = this.textContent.trim();
 	if (hasClass(this, "text"))
 	{
-		this.innerHTML = "<input style='width: 100%' type='text' value='"+text+"'>";
+		this.innerHTML = "<input type='text' value='"+text+"'>";
 	} else
 	if (hasClass(this, "html"))
 	{
-		this.innerHTML = "<textarea rows='10' style='width:100%'>"+html+"</textarea>";
+		this.innerHTML = "<textarea rows='10'>"+html+"</textarea>";
 	}
 	this.firstChild.focus();
 	this.firstChild.onblur = preview;
 }
 
-var editable = document.getElementsByClassName('edit');
+var editable = $(".edit")//document.getElementsByClassName('edit');
 for (var i = 0; i < editable.length; i++)
 {
 	editable[i].ondblclick = edit;

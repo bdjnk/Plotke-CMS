@@ -14,7 +14,6 @@ div#wrapper {
   width: 780px;
   /*max-width: 780px;
   min-width: 240px;*/
-  /*width: expression(document.body.clientWidth < 242? "240px" : document.body.clientWidth > 782? "780px" : "auto");*/
   text-align: justify;
 }
 
@@ -39,6 +38,9 @@ div.titlebox {
 }
 
 div.moronic { padding: 0px; }
+
+input { width: 100%; }
+textarea { width: 100%; }
 
 div.spacer {
   position: relative;
@@ -138,7 +140,7 @@ ul.regular li {padding-top:5px;}
 img { border:none; }
 
 div.footerbox {
-/* Needed when not using niftycorners, not sure why... */
+/* Needed when not using niftycorners */
   margin-top: 0px;
   padding: 0px 10px;
   background: #ccc;
