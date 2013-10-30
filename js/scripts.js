@@ -16,35 +16,67 @@ function menu(menuId, arrowId)
   }
 }
 
+$(document).ajaxError(function(event, request, settings)
+{
+	$("#msg" ).append("<li>Error requesting page "+settings.url+"</li>");
+});
+
 var html;
 var text;
 var undo;
 
-function preview()
+function save(elm)
 {
-	if (this.tagName == "INPUT")
+	var edited = elm.parentNode;
+	if (elm.tagName == "INPUT")
 	{
 		if (undo == 0)
 		{
-			this.parentNode.innerHTML = this.value;
+			edited.innerHTML = elm.value;
 		} else
 		if (undo == 1)
 		{
-			changed = this.parentNode;
-			changed.innerHTML = html;
-			var alter = changed.getElementsByClassName("alter")[0];
-			alter.innerHTML = this.value;
+			edited.innerHTML = html;
+			var alter = edited.getElementsByClassName("alter")[0];
+			alter.innerHTML = elm.value;
 		}
 		else { alert("too many alters, inform your system admin."); }
 	} else
-	if (this.tagName == "TEXTAREA")
+	if (elm.tagName == "TEXTAREA")
 	{
-		this.parentNode.innerHTML = this.value;
+		edited.innerHTML = elm.value;
+	}
+	if (!ctrlDown)
+	{
+		// save to database
+		$.ajax({
+			url: "lib/save.php",
+			data: {
+				value: elm.value,
+				table: edited.getAttribute("data-table"),
+				id: edited.getAttribute("data-uid"),
+				field: edited.getAttribute("data-field")
+			},
+			type: "POST",
+			done: function()
+			{
+				console.log( "success" );
+			},
+			fail: function()
+			{
+				console.log( "error" );
+			},
+			always: function()
+			{
+				console.log( "finished" );
+			}
+		});
 	}
 }
 
 function edit()
 {
+	if (!ctrlDown) { return; }
 	undo = this.getElementsByClassName("alter").length;
 	html = this.innerHTML.trim();
 	text = this.textContent.trim();
@@ -57,13 +89,15 @@ function edit()
 		this.innerHTML = "<textarea rows='10'>"+html+"</textarea>";
 	}
 	this.firstChild.focus();
-	this.firstChild.onblur = preview;
+	$(this).children(":first").blur(function() {
+		save(this);
+	});
 }
 
 var editable = $(".edit")//document.getElementsByClassName('edit');
 for (var i = 0; i < editable.length; i++)
 {
-	editable[i].ondblclick = edit;
+	editable[i].onclick = edit;
 }
 
 function wink()
@@ -76,3 +110,28 @@ function hasClass(element, className)
 {
     return (" "+element.className+" ").indexOf(" "+className+" ") > -1;
 }
+
+var shiftDown = false;
+var ctrlDown = false;
+var altDown = false;
+
+$(window).keydown(function(evt)
+		{
+			switch (evt.which)
+			{
+				case 16: shiftDown = true; break;
+				case 17: ctrlDown = true; break;
+				case 18: altDown = true; break;
+			}
+		}
+).keyup(function(evt)
+		{
+			switch (evt.which)
+			{
+				case 16: shiftDown = false; break;
+				case 17: ctrlDown = false; break;
+				case 18: altDown = false; break;
+			}
+		}
+);
+

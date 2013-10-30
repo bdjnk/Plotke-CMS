@@ -24,7 +24,13 @@ if (!function_exists('get_page'))
 	function get_info($page)
 	{
 		$db = opendb();
-		$query = "SELECT long_title, description FROM page WHERE id = '$page'";
+		$query = "
+			SELECT
+				long_title,
+				description
+			FROM page
+			WHERE id = '$page'
+		";
 		if ($result = $db->query($query))
 		{
 			return $result;

@@ -1,6 +1,12 @@
-<?php error_reporting(E_ALL); ini_set("display_errors", 1);
+<?php
+error_reporting(E_ALL); ini_set("display_errors", 1);
+
 date_default_timezone_set('America/Los_Angeles'); setlocale(LC_ALL, 'us_US');
-include("/usr/share/webapps/Plotke-CMS/lib/mysql.php"); ?>
+
+include_once("/usr/share/webapps/Plotke-CMS/lib/mysql.php");
+
+$page = isset($_GET['page']) ? $_GET['page'] : 0;
+?>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 
@@ -18,10 +24,6 @@ include("/usr/share/webapps/Plotke-CMS/lib/mysql.php"); ?>
 <style type="text/css">
 </style>
 
-<!--for page specific script-->
-<script type="text/javascript"><!--
---></script>
-
 </head>
 
 <body>
@@ -30,10 +32,11 @@ include("/usr/share/webapps/Plotke-CMS/lib/mysql.php"); ?>
   <div class="spacer"></div>
 
 	<div class="titlebox">
-	<?php $result = get_info(0);
+	<?php
+	$result = get_info($page);
 	if ($row = $result->fetch_assoc()) { ?>
-		<div class="edit text" id="title"><?php echo $row['long_title'] ?></div><br>
-		<div class="edit text" id="subtitle"><?php echo $row['description'] ?></div>
+		<div class="edit text" id="title" data-table="page" data-uid="<?php echo $page ?>" data-field="long_title"><?php echo $row['long_title'] ?></div>
+		<div class="edit text" id="subtitle" data-table="page" data-uid="<?php echo $page ?>" data-field="description"><?php echo $row['description'] ?></div>
 	<?php } ?>
   </div>
   
@@ -46,39 +49,46 @@ include("/usr/share/webapps/Plotke-CMS/lib/mysql.php"); ?>
 	while ($row = $result->fetch_assoc()) {
 		$cat = $row['title'];
 		if ($cat == "") { ?>
-		<div class="menu edit text"><a href="javascript:;"><?php echo $row['short_title']; ?></a></div>
+			<div class="menu edit text" data-table="page" data-uid="<?php echo $row['id']; ?>" data-field="short_title">
+			<a href="javascript:;"><?php echo $row['short_title']; ?></a></div>
 		<div class="menuspacer"></div>
 		<?php
 		} else {
-			$page = $row['short_title'];
+			$page_title = $row['short_title'];
 			if ($pcat != $cat) {
 				if ($pcat != "") { ?>
     </dl>
 		<div class="menuspacer"></div>
-		<?php } ?>
+		<?php
+				} ?>
     <div class="menu edit text">
 			<a onclick="menu('<?php echo $row['cat']; ?>Menu','<?php echo $row['cat']; ?>Arrow')" href="javascript:;">
 			<img class="arrow" id="<?php echo $row['cat']; ?>Arrow" src="images/arrow1.gif" alt="menu arrow">
 			<span class="alter"><?php echo $cat ?></span></a>
 		</div>
     <dl id="<?php echo $row['cat']; ?>Menu" class="hide">
-			<dt class="submenu edit text"><a href="javascript:;"><?php echo $page; ?></a></dt>
-		<?php } else { ?>
-			<dt class="submenu edit text"><a href="javascript:;"><?php echo $page; ?></a></dt>
-	<?php } } $pcat = $cat; } ?>
+			<dt class="submenu edit text">
+				<a href="javascript:;"><?php echo $page_title; ?></a></dt>
+		<?php
+			} else { ?>
+			<dt class="submenu edit text"><a href="javascript:;"><?php echo $page_title; ?></a></dt>
+	<?php
+			} } $pcat = $cat; } ?>
   </div>
   
 	<div class="contentbox">
-		<?php $result = get_posts(0);
+		<?php
+		$result = get_posts($page);
 		while ($row = $result->fetch_assoc()) {
 		$info = strftime("%Y, %B %d at %R", $row['time_published'])." by ".$row['name']; ?>
-		<div class="contenttitle edit text" id="<?php echo $row['id'] ?>" title="<?php echo $info; ?>">
+		<div class="contenttitle edit text" data-table="post" data-uid="<?php echo $row['id'] ?>" data-field="title" title="<?php echo $info; ?>">
 			<?php echo $row['title']; ?>
     </div>
-    <div class="contenttext edit html">
+			<div class="contenttext edit html" data-table="post" data-uid="<?php echo $row['id'] ?>" data-field="abstract">
 			<?php echo $row['abstract']; ?>
 		</div>
-		<?php } ?>
+		<?php
+		} ?>
   </div>
   
   <div class="spacer" style="clear: both;"></div>
@@ -89,7 +99,9 @@ include("/usr/share/webapps/Plotke-CMS/lib/mysql.php"); ?>
 			This page validates as HTML 4.01 Strict: <a href="http://validator.w3.org/check/referer">check</a>.
     </div>
     <div id="wink">
-      <a href="http://www.bdjnk.50webs.com/iereject.html"><span style="font-family:serif;" onclick="wink()"><span id="winkeye">o</span>_O</span></a>
+			<a href="http://www.bdjnk.50webs.com/iereject.html">
+				<span style="font-family:serif;" onclick="wink()"><span id="winkeye">o</span>_O</span>
+			</a>
     </div>
   </div>
 
@@ -97,6 +109,15 @@ include("/usr/share/webapps/Plotke-CMS/lib/mysql.php"); ?>
 
 <script type="text/javascript" src="js/jquery.js"></script>
 <script type="text/javascript" src="js/scripts.js"></script>
+
+<!--for page specific script-->
+<script type="text/javascript"><!--
+var page;
+$(document).ready(function()
+{
+	page = <?php echo $page ?>;
+});
+--></script>
 
 </body>
 </html>
