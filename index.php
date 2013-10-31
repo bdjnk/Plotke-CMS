@@ -1,11 +1,13 @@
 <?php
-error_reporting(E_ALL); ini_set("display_errors", 1);
+	error_reporting(E_ALL); ini_set("display_errors", 1);
 
-date_default_timezone_set('America/Los_Angeles'); setlocale(LC_ALL, 'us_US');
+	date_default_timezone_set('America/Los_Angeles'); setlocale(LC_ALL, 'us_US');
 
-include_once("/usr/share/webapps/Plotke-CMS/lib/mysql.php");
+	include_once("/usr/share/webapps/Plotke-CMS/lib/mysql.php");
 
-$page = isset($_GET['page']) ? $_GET['page'] : 0;
+	$page = isset($_GET['page']) ? $_GET['page'] : 0;
+
+	define("FIRST", -1);
 ?>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
@@ -32,48 +34,41 @@ $page = isset($_GET['page']) ? $_GET['page'] : 0;
   <div class="spacer"></div>
 
 	<div class="titlebox">
-	<?php
+<?php
 	$result = get_info($page);
 	if ($row = $result->fetch_assoc()) { ?>
 		<div class="edit text" id="title" data-table="page" data-uid="<?php echo $page ?>" data-field="long_title"><?php echo $row['long_title'] ?></div>
 		<div class="edit text" id="subtitle" data-table="page" data-uid="<?php echo $page ?>" data-field="description"><?php echo $row['description'] ?></div>
-	<?php } ?>
+<?php
+	} ?>
   </div>
   
   <div class="spacer"></div>
 
 	<div class="navbox">
-	<?php
+<?php
 	$result = get_pages();
-	$pcat = "";
+	$pcat = FIRST;
 	while ($row = $result->fetch_assoc()) {
-		$cat = $row['title'];
-		if ($cat == "") { ?>
-			<div class="menu edit text" data-table="page" data-uid="<?php echo $row['id']; ?>" data-field="short_title">
-			<a href="javascript:;"><?php echo $row['short_title']; ?></a></div>
-		<div class="menuspacer"></div>
+		$cat = $row['cat'];
+		if ($pcat != $cat) {
+			if ($pcat != FIRST) { ?>
+				</ul>
+			</dd>
+		</dl>
 		<?php
-		} else {
-			$page_title = $row['short_title'];
-			if ($pcat != $cat) {
-				if ($pcat != "") { ?>
-    </dl>
-		<div class="menuspacer"></div>
-		<?php
-				} ?>
-    <div class="menu edit text">
-			<a onclick="menu('<?php echo $row['cat']; ?>Menu','<?php echo $row['cat']; ?>Arrow')" href="javascript:;">
-			<img class="arrow" id="<?php echo $row['cat']; ?>Arrow" src="images/arrow1.gif" alt="menu arrow">
-			<span class="alter"><?php echo $cat ?></span></a>
-		</div>
-    <dl id="<?php echo $row['cat']; ?>Menu" class="hide">
-			<dt class="submenu edit text">
-				<a href="javascript:;"><?php echo $page_title; ?></a></dt>
-		<?php
-			} else { ?>
-			<dt class="submenu edit text"><a href="javascript:;"><?php echo $page_title; ?></a></dt>
+			} ?>
+		<dl>
+			<dt class="menu edit text"><?php echo $row['title']; ?></dt>
+			<dd>
+				<ul>
 	<?php
-			} } $pcat = $cat; } ?>
+		} ?>
+					<li data-url="?page=<?php echo $row['id']; ?>" class="submenu edit text">
+						<?php echo $row['short_title']; ?></li>
+<?php
+	$pcat = $cat; } ?>
+
   </div>
   
 	<div class="contentbox">

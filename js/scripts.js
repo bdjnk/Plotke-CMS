@@ -76,7 +76,19 @@ function save(elm)
 
 function edit()
 {
-	if (!ctrlDown) { return; }
+	if (!ctrlDown)
+	{
+		var url = this.getAttribute("data-url");
+		if (url != null)
+		{
+			window.location = url;
+		}
+		if ($(this).hasClass("menu"))
+		{
+			$(this).next().toggleClass("hide");
+		}
+		return;
+	}
 	undo = this.getElementsByClassName("alter").length;
 	html = this.innerHTML.trim();
 	text = this.textContent.trim();
