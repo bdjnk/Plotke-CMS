@@ -93,11 +93,6 @@
     <div id="note">
 			This page validates as HTML 4.01 Strict: <a href="http://validator.w3.org/check/referer">check</a>.
     </div>
-    <div id="wink">
-			<a href="http://www.bdjnk.50webs.com/iereject.html">
-				<span style="font-family:serif;" onclick="wink()"><span id="winkeye">o</span>_O</span>
-			</a>
-    </div>
   </div>
 
 </div>

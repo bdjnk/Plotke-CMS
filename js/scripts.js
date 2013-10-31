@@ -1,52 +1,14 @@
-function menu(menuId, arrowId)
-{
-  var menu = document.getElementById(menuId);
-  var arrow = document.getElementById(arrowId);
-
-  switch (menu.className)
-	{
-    case ('show'):
-      menu.className = 'hide';
-			arrow.src = 'images/arrow1.gif';
-      break;
-    case ('hide'):
-      menu.className = 'show';
-			arrow.src = 'images/arrow2.gif';
-      break;
-  }
-}
-
-$(document).ajaxError(function(event, request, settings)
-{
-	$("#msg" ).append("<li>Error requesting page "+settings.url+"</li>");
-});
 
 var html;
-var text;
-var undo;
 
 function save(elm)
 {
 	var edited = elm.parentNode;
-	if (elm.tagName == "INPUT")
-	{
-		if (undo == 0)
-		{
-			edited.innerHTML = elm.value;
-		} else
-		if (undo == 1)
-		{
-			edited.innerHTML = html;
-			var alter = edited.getElementsByClassName("alter")[0];
-			alter.innerHTML = elm.value;
-		}
-		else { alert("too many alters, inform your system admin."); }
-	} else
-	if (elm.tagName == "TEXTAREA")
-	{
-		edited.innerHTML = elm.value;
-	}
-	if (!ctrlDown)
+	edited.innerHTML = elm.value;
+	
+	$(edited).removeClass("editing");
+
+	if (!ctrlDown && edited.innerHTML.trim() != html)
 	{
 		// save to database
 		$.ajax({
@@ -60,21 +22,21 @@ function save(elm)
 			type: "POST",
 			done: function()
 			{
-				console.log( "success" );
+				console.log("success");
 			},
 			fail: function()
 			{
-				console.log( "error" );
+				console.log("error");
 			},
 			always: function()
 			{
-				console.log( "finished" );
+				console.log("finished");
 			}
 		});
 	}
 }
 
-function edit()
+function clicked()
 {
 	if (!ctrlDown)
 	{
@@ -89,38 +51,29 @@ function edit()
 		}
 		return;
 	}
-	undo = this.getElementsByClassName("alter").length;
+	if ($(this).hasClass("editing")) { return; }
+
 	html = this.innerHTML.trim();
-	text = this.textContent.trim();
-	if (hasClass(this, "text"))
+	if ($(this).hasClass("text"))
 	{
-		this.innerHTML = "<input type='text' value='"+text+"'>";
+		this.innerHTML = "<input type='text' value='"+html+"'>";
 	} else
-	if (hasClass(this, "html"))
+	if ($(this).hasClass("html"))
 	{
 		this.innerHTML = "<textarea rows='10'>"+html+"</textarea>";
 	}
+	$(this).addClass("editing");
 	this.firstChild.focus();
+
 	$(this).children(":first").blur(function() {
 		save(this);
 	});
 }
 
-var editable = $(".edit")//document.getElementsByClassName('edit');
+var editable = $(".edit")
 for (var i = 0; i < editable.length; i++)
 {
-	editable[i].onclick = edit;
-}
-
-function wink()
-{
-	document.getElementById('winkeye').innerHTML="&nbsp;-";
-	var unwink=setTimeout("document.getElementById('winkeye').innerHTML='o'",290);
-}
-
-function hasClass(element, className)
-{
-    return (" "+element.className+" ").indexOf(" "+className+" ") > -1;
+	editable[i].onclick = clicked;
 }
 
 var shiftDown = false;
