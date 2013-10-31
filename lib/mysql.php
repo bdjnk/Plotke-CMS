@@ -50,11 +50,10 @@ if (!function_exists('get_pages'))
 				page.id,
 				page.short_title
 			FROM
-				page
-				LEFT JOIN
-					category
-					ON
-						category.id = page.category_id
+				page,
+				category
+			WHERE
+				category.id = page.category_id
 			ORDER BY
 				category.title,
 				page.short_title

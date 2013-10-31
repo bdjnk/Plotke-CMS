@@ -36,6 +36,8 @@ function save(elm)
 	}
 }
 
+var field;
+
 function clicked()
 {
 	if (!ctrlDown)
@@ -65,8 +67,13 @@ function clicked()
 	$(this).addClass("editing");
 	this.firstChild.focus();
 
-	$(this).children(":first").blur(function() {
-		save(this);
+	field = $(this).children(":first");
+	field.blur(function()
+	{
+		if (document.activeElement != this)
+		{
+			save(this);
+		}
 	});
 }
 

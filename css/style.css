@@ -74,6 +74,9 @@ div.navbox {
   color: #000;
   font-weight: bold;
 }
+ul {
+	margin: 0px;
+}
 img.arrow {
   position:relative;
   top:1px;
@@ -85,8 +88,9 @@ img.arrow {
 .submenu {
   list-style-type: none;
   position: relative;
-	left: -60px;
-  padding-bottom: 5px;
+	left: -65px;
+  padding-top: 5px;
+	width: 120px;
 }
 div.menuspacer {
 	padding-bottom: 10px;
