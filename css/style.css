@@ -7,21 +7,18 @@ body {
   font-family: 'Trebuchet MS',Helvetica,sans-serif;
   font-size: 0.8em;
   line-height: 1.3;
-  /*overflow-y: scroll;*/
 }
 
 a { text-decoration: underline; }
 a:link { color: #000; }
 a:visited { color: #000; }
 a:hover { color: #444; }
-a:active { color: #000; }
+a:active { color: #fff; }
 
 div#wrapper {
   margin: 0 auto;
   background: #fff;
   width: 780px;
-  /*max-width: 780px;
-  min-width: 240px;*/
   text-align: justify;
 }
 
@@ -38,6 +35,7 @@ div.titlebox {
   word-spacing: 5px;
   letter-spacing: 0.08cm;
 	margin-bottom: 5px;
+	margin-left: 5px;
 }
 #subtitle {
   position: relative;
@@ -49,7 +47,10 @@ div.titlebox {
 div.moronic { padding: 0px; }
 
 input { width: 100%; }
-textarea { width: 100%; }
+textarea {
+	width: 100%;
+	font-size: 1.2em;
+}
 
 div.spacer {
   position: relative;
@@ -88,7 +89,7 @@ img.arrow {
 .submenu {
   list-style-type: none;
   position: relative;
-	left: -65px;
+	left: -25px;
   padding-top: 5px;
 	width: 120px;
 }
@@ -109,35 +110,14 @@ div.contenttitle {
   padding: 5px 10px;
   background: #eee;
   margin-bottom: 10px;
-  /* width: 537px; */
   position: relative;
   color: #000;
   font-weight: bold;
-}
-div.date {
-	font-size: .8em;
-	max-height: 15px;
-	color: #444;
-	background-color: #eee;
-	position: relative;
-	margin: 8px 0;
-	padding: 0 4px;
-	text-align: left;
-}
-div.contentspacer {
-  background: #ccc;
-  height: 10px;
 }
 div.contenttext {
   background: #eee;
   padding: 5px 10px;
   display: block;
-	/*
-  margin-left: auto;
-  margin-right: auto;
-  width: 526px;
-  position: relative;
-	*/
   margin-bottom: 20px;
   color: #000;
 }
@@ -145,19 +125,9 @@ div.contenttext a {
 	font-weight: bold;
 }
 
-ul.regular {
-  list-style-type: none;
-  position: relative;
-  right: 20px;
-  text-indent:-15px;
-  margin-top:-5px;
-}
-ul.regular li {padding-top:5px;}
-
 img { border:none; }
 
 div.footerbox {
-/* Needed when not using niftycorners */
   margin-top: 0px;
   padding: 0px 10px;
   background: #ddd;
@@ -174,13 +144,11 @@ div.footerbox {
 }
 
 #stupid { padding: 5px 0; }
-#wink {
-  position: absolute;
-  right: 0;
-  bottom: 0;
-  padding: 5px 5px;
+
+dd {
+	margin: 0px;
+	border-top: 1px solid black;
 }
-#wink a:hover { color: #000; }
 
 .hide { display: none; }
 .show { display: block; }

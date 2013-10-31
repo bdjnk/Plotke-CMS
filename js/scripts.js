@@ -67,8 +67,7 @@ function clicked()
 	$(this).addClass("editing");
 	this.firstChild.focus();
 
-	field = $(this).children(":first");
-	field.blur(function()
+	$(this).children(":first").blur(function()
 	{
 		if (document.activeElement != this)
 		{

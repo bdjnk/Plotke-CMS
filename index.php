@@ -63,11 +63,11 @@
 			<dd>
 				<ul>
 	<?php
-		} ?>
+		} if (isset($row['id'])) { ?>
 					<li data-url="?page=<?php echo $row['id']; ?>" class="submenu edit text">
 						<?php echo $row['short_title']; ?></li>
-<?php
-	$pcat = $cat; } ?>
+	<?php
+		} $pcat = $cat; } ?>
 
   </div>
   
