@@ -1,3 +1,6 @@
+/*""""""""""""""""""""""""""""*\
+ * general / global
+ */
 html {
 	height:100%; overflow-y:scroll;
 }
@@ -8,6 +11,7 @@ body {
   font-size: 0.8em;
   line-height: 1.3;
 }
+img { border:none; }
 
 a { text-decoration: underline; }
 a:link { color: #000; }
@@ -15,6 +19,9 @@ a:visited { color: #000; }
 a:hover { color: #444; }
 a:active { color: #fff; }
 
+/*""""""""""""""""""""""""""""*\
+ * primary layout
+ */
 div#wrapper {
   margin: 0 auto;
   background: #fff;
@@ -22,7 +29,7 @@ div#wrapper {
   text-align: justify;
 }
 
-div.titlebox {
+div#titlebox {
   margin-top: 0px;
   padding: 10px;
   background: #ddd;
@@ -30,35 +37,45 @@ div.titlebox {
   width: 760px;
   position: relative;
 }
-#title {
+div#title {
   font-size: 2em;
   word-spacing: 5px;
   letter-spacing: 0.08cm;
 	margin-bottom: 5px;
 	margin-left: 5px;
 }
-#subtitle {
+div#subtitle {
   position: relative;
   padding-left: 60px;
   word-spacing: 5px;
   letter-spacing: 0.1cm;
 }
-
-div.moronic { padding: 0px; }
-
-input { width: 100%; }
-textarea {
-	width: 100%;
-	font-size: 1.2em;
-}
-
 div.spacer {
   position: relative;
   background: #fff;
   height: 15px;
 }
+div#footerbox {
+  margin-top: 0px;
+  padding: 0px 10px;
+  background: #ddd;
+  color: #000;
+  width: 760px;
+  font-size: 0.7em;
+  position: relative;
+}
+#note {
+  position: absolute;
+  left:0px;
+  top:0px;
+  padding: 5px 5px;
+}
+#stupid { padding: 5px 0; }
 
-div.navbox {
+/*""""""""""""""""""""""""""""*\
+ * menu / navigation box
+ */
+div#menu {
   padding: 0 10px;
   background: #ddd 50%;
   position: relative;
@@ -68,36 +85,30 @@ div.navbox {
   color: #000;
   display: inline;
 }
-.menu {
+div#menu dt {
   padding: 5px 10px;
   background: #eee;
-  position: relative;
-  color: #000;
   font-weight: bold;
 }
-ul {
+div#menu dd {
+	margin: 0px;
+	border-top: 1px solid black;
+}
+div#menu ul {
 	margin: 0px;
 }
-img.arrow {
-  position:relative;
-  top:1px;
-  right:3px;
-}
-.show {
-	margin: 10px 10px -5px 10px;
-}
-.submenu {
+div#menu li {
   list-style-type: none;
   position: relative;
 	left: -25px;
   padding-top: 5px;
 	width: 120px;
 }
-div.menuspacer {
-	padding-bottom: 10px;
-}
 
-div.contentbox {
+/*""""""""""""""""""""""""""""*\
+ * page content / post list
+ */
+div#contentbox {
   padding: 10px 10px 0 10px;
   background: #ddd 50%;
   position: relative;
@@ -125,29 +136,13 @@ div.contenttext a {
 	font-weight: bold;
 }
 
-img { border:none; }
-
-div.footerbox {
-  margin-top: 0px;
-  padding: 0px 10px;
-  background: #ddd;
-  color: #000;
-  width: 760px;
-  font-size: 0.7em;
-  position: relative;
-}
-#note {
-  position: absolute;
-  left:0px;
-  top:0px;
-  padding: 5px 5px;
-}
-
-#stupid { padding: 5px 0; }
-
-dd {
-	margin: 0px;
-	border-top: 1px solid black;
+/*""""""""""""""""""""""""""""*\
+ * interactive / editing
+ */
+.edit input { width: 100%; }
+.edit textarea {
+	width: 100%;
+	font-size: 1.2em;
 }
 
 .hide { display: none; }

@@ -8,7 +8,7 @@ function save(elm)
 	
 	$(edited).removeClass("editing");
 
-	if (!ctrlDown && edited.innerHTML.trim() != html)
+	if (!ctrlDown)// && edited.innerHTML.trim() != html)
 	{
 		// save to database
 		$.ajax({

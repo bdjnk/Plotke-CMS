@@ -33,7 +33,7 @@
   
   <div class="spacer"></div>
 
-	<div class="titlebox">
+	<div id="titlebox">
 <?php
 	$result = get_info($page);
 	if ($row = $result->fetch_assoc()) { ?>
@@ -45,7 +45,7 @@
   
   <div class="spacer"></div>
 
-	<div class="navbox">
+	<div id="menu">
 <?php
 	$result = get_pages();
 	$pcat = FIRST;
@@ -71,7 +71,7 @@
 
   </div>
   
-	<div class="contentbox">
+	<div id="contentbox">
 		<?php
 		$result = get_posts($page);
 		while ($row = $result->fetch_assoc()) {
@@ -88,7 +88,7 @@
   
   <div class="spacer" style="clear: both;"></div>
   
-  <div class="footerbox">
+  <div id="footerbox">
     <div id="stupid">&nbsp;</div>
     <div id="note">
 			This page validates as HTML 4.01 Strict: <a href="http://validator.w3.org/check/referer">check</a>.
