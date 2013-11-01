@@ -53,6 +53,7 @@
 		$cat = $row['cat'];
 		if ($pcat != $cat) {
 			if ($pcat != FIRST) { ?>
+					<li class="new page hide">new_page</li>
 				</ul>
 			</dd>
 		</dl>
@@ -64,14 +65,21 @@
 				<ul>
 	<?php
 		} if (isset($row['id'])) { ?>
-					<li data-url="?page=<?php echo $row['id']; ?>" class="submenu edit text">
+					<li data-url="?page=<?php echo $row['id']; ?>" class="edit text">
 						<?php echo $row['short_title']; ?></li>
 	<?php
 		} $pcat = $cat; } ?>
-
+					<li class="new page hide">new_page</li>
+				</ul>
+			</dd>
+		</dl>
+		<dl>
+			<dt class="new category hide">new_category</dt>
+		</dl>
   </div>
   
 	<div id="contentbox">
+		<div class="new post hide contenttitle">new_post</div>
 		<?php
 		$result = get_posts($page);
 		while ($row = $result->fetch_assoc()) {
@@ -79,7 +87,7 @@
 		<div class="contenttitle edit text" data-table="post" data-uid="<?php echo $row['id'] ?>" data-field="title" title="<?php echo $info; ?>">
 			<?php echo $row['title']; ?>
     </div>
-			<div class="contenttext edit html" data-table="post" data-uid="<?php echo $row['id'] ?>" data-field="abstract">
+		<div class="contenttext edit html" data-table="post" data-uid="<?php echo $row['id'] ?>" data-field="abstract">
 			<?php echo $row['abstract']; ?>
 		</div>
 		<?php

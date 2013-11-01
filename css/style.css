@@ -104,6 +104,9 @@ div#menu li {
   padding-top: 5px;
 	width: 120px;
 }
+div#menu li:hover {
+	text-decoration: underline;
+}
 
 /*""""""""""""""""""""""""""""*\
  * page content / post list
@@ -126,9 +129,9 @@ div.contenttitle {
   font-weight: bold;
 }
 div.contenttext {
-  background: #eee;
-  padding: 5px 10px;
-  display: block;
+	background: #eee;
+	padding: 5px 10px;
+	display: block;
   margin-bottom: 20px;
   color: #000;
 }
@@ -146,7 +149,3 @@ div.contenttext a {
 }
 
 .hide { display: none; }
-.show { display: block; }
-
-img.hide { display: none; }
-img.show { display:inline; }

@@ -38,7 +38,7 @@ function save(elm)
 
 var field;
 
-function clicked()
+function edit()
 {
 	if (!ctrlDown)
 	{
@@ -76,10 +76,38 @@ function clicked()
 	});
 }
 
-var editable = $(".edit")
+var editable = $(".edit");
 for (var i = 0; i < editable.length; i++)
 {
-	editable[i].onclick = clicked;
+	editable[i].onclick = edit;
+}
+
+function add()
+{
+	if ($(this).hasClass("page"))
+	{
+		console.log("new page");
+	} else
+	if ($(this).hasClass("category"))
+	{
+		console.log("new category");
+	} else
+	if ($(this).hasClass("post"))
+	{
+		console.log("new post");
+	}
+}
+
+var addable = $(".new");
+for (var i = 0; i < addable.length; i++)
+{
+	addable[i].onclick = add;
+}
+
+function ctrl(bool)
+{
+	ctrlDown = bool;
+	addable.toggleClass("hide");
 }
 
 var shiftDown = false;
@@ -91,7 +119,7 @@ $(window).keydown(function(evt)
 			switch (evt.which)
 			{
 				case 16: shiftDown = true; break;
-				case 17: ctrlDown = true; break;
+				case 17: ctrl(true); break;
 				case 18: altDown = true; break;
 			}
 		}
@@ -100,7 +128,7 @@ $(window).keydown(function(evt)
 			switch (evt.which)
 			{
 				case 16: shiftDown = false; break;
-				case 17: ctrlDown = false; break;
+				case 17: ctrl(false); break;
 				case 18: altDown = false; break;
 			}
 		}
