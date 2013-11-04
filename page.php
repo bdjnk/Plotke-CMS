@@ -112,6 +112,7 @@
 </div>
 
 <script type="text/javascript" src="js/jquery.js"></script>
+<script type="text/javascript" src="js/markdown.min.js"></script>
 <script type="text/javascript" src="js/scripts.js"></script>
 
 <!--for page specific script-->

@@ -1,14 +1,22 @@
 
-var html;
+var content;
 
 function save(elm)
 {
 	var edited = elm.parentNode;
-	edited.innerHTML = elm.value;
+	if ($(edited).hasClass("text"))
+	{
+		edited.innerHTML = elm.value;
+	} else
+	if ($(edited).hasClass("html"))
+	{
+		$(edited).data("markdown", elm.value);
+		edited.innerHTML = markdown.toHTML(elm.value);
+	}
 	
 	$(edited).removeClass("editing");
 
-	if (!ctrlDown)// && edited.innerHTML.trim() != html)
+	if (!ctrlDown)// && edited.innerHTML.trim() != content)
 	{
 		// save to database
 		$.ajax({
@@ -36,39 +44,45 @@ function save(elm)
 	}
 }
 
-var field;
-
 function edit()
 {
+	var field = $(this);
+
 	if (!ctrlDown)
 	{
-		var url = this.getAttribute("data-url");
+		var url = field.attr("data-url");
 		if (url != null)
 		{
 			window.location = url;
 		}
-		if ($(this).hasClass("menu") && !$(this).hasClass("editing"))
+		if (field.hasClass("menu") && !field.hasClass("editing"))
 		{
-			$(this).next().toggleClass("hide");
-			$(this).toggleClass("closed");
+			field.next().toggleClass("hide");
+			field.toggleClass("closed");
 		}
 		return;
 	}
-	if ($(this).hasClass("editing")) { return; }
+	if (field.hasClass("editing")) { return; }
 
-	html = this.innerHTML.trim();
-	if ($(this).hasClass("text"))
+	if (field.hasClass("text"))
 	{
-		this.innerHTML = "<input type='text' value='"+html+"'>";
+		content = field.html().trim();
+		field.html("<input type='text' value='"+content+"'>");
 	} else
-	if ($(this).hasClass("html"))
+	if (field.hasClass("html"))
 	{
-		this.innerHTML = "<textarea rows='10'>"+html+"</textarea>";
+		content = field.data("markdown") == null
+			? field.html().trim() : field.data("markdown");
+		field.html("<textarea rows='1'>"+content+"</textarea>");
+		
+		var height = field.children(":first").prop("scrollHeight");
+		if (height > 600) { height = 600; }
+		field.children(":first").height(height);
 	}
-	$(this).addClass("editing");
+	field.addClass("editing");
 	this.firstChild.focus();
 
-	$(this).children(":first").blur(function()
+	field.children(":first").blur(function()
 	{
 		if (document.activeElement != this)
 		{
@@ -77,10 +91,13 @@ function edit()
 	});
 }
 
-var editable = $(".edit");
-for (var i = 0; i < editable.length; i++)
+$(".edit").click(edit);
+
+var bad = $(".edit.html");
+for (var i = 0; i < bad.length; i++)
 {
-	editable[i].onclick = edit;
+	$(bad[i]).data("markdown", $(bad[i]).html().trim());
+	$(bad[i]).html(markdown.toHTML($(bad[i]).html().trim()));
 }
 
 function add()
@@ -99,11 +116,7 @@ function add()
 	}
 }
 
-var addable = $(".new");
-for (var i = 0; i < addable.length; i++)
-{
-	addable[i].onclick = add;
-}
+$(".new").click(add);
 
 function shift(down)
 {
@@ -116,7 +129,7 @@ function ctrl(down)
 function alt(down)
 {
 	altDown = down;
-	down ? addable.removeClass("hide") : addable.addClass("hide");
+	down ? $(".new").removeClass("hide") : $(".new").addClass("hide");
 }
 
 var shiftDown = false;

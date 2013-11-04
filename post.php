@@ -42,7 +42,7 @@
 	if ($row = $result->fetch_assoc()) { ?>
 		<div class="edit text" id="posttitle" data-table="post" data-uid="<?php echo $post ?>" data-field="title">
 	<?php echo $row['title'] ?></div>
-		<div class="edit text" id="abstract" data-table="post" data-uid="<?php echo $post ?>" data-field="abstract">
+		<div class="edit html" id="abstract" data-table="post" data-uid="<?php echo $post ?>" data-field="abstract">
 	<?php echo $row['abstract'] ?></div>
 <?php
 	} ?>
@@ -108,6 +108,7 @@
 </div>
 
 <script type="text/javascript" src="js/jquery.js"></script>
+<script type="text/javascript" src="js/markdown.min.js"></script>
 <script type="text/javascript" src="js/scripts.js"></script>
 
 <!--for page specific script-->
