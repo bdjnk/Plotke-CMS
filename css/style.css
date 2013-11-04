@@ -5,11 +5,23 @@ html {
 	height:100%; overflow-y:scroll;
 }
 body {
-  background: #fff;
+  background-color: #bbb;
   text-align: center;
   font-family: 'Trebuchet MS',Helvetica,sans-serif;
   font-size: 0.8em;
   line-height: 1.3;
+}
+p {
+/*margin-top: 0px;*/
+}
+pre {
+	font-family: 'Courier New',Courier,monospace;
+	overflow-x: auto;
+	background-color: #fff;
+}
+code {
+	font-family: 'Courier New',Courier,monospace;
+	background-color: #eee;
 }
 img { border:none; }
 
@@ -24,7 +36,6 @@ a:active { color: #fff; }
  */
 div#wrapper {
   margin: 0 auto;
-  background: #fff;
   width: 780px;
   text-align: justify;
 }
@@ -32,7 +43,7 @@ div#wrapper {
 div#titlebox {
   margin-top: 0px;
   padding: 10px;
-  background: #ddd;
+  background-color: #fff;
   color: #000;
   width: 760px;
   position: relative;
@@ -44,6 +55,15 @@ div#title {
 	margin-bottom: 5px;
 	margin-left: 5px;
 }
+div#posttitle {
+  font-size: 2em;
+	margin: 0 5px;
+	padding-bottom: 5px;
+}
+div#abstract {
+  position: relative;
+  padding: 0 20px;	
+}
 div#subtitle {
   position: relative;
   padding-left: 60px;
@@ -52,13 +72,12 @@ div#subtitle {
 }
 div.spacer {
   position: relative;
-  background: #fff;
   height: 15px;
 }
 div#footerbox {
   margin-top: 0px;
   padding: 0px 10px;
-  background: #ddd;
+  background-color: #fff;
   color: #000;
   width: 760px;
   font-size: 0.7em;
@@ -77,7 +96,7 @@ div#footerbox {
  */
 div#menu {
   padding: 0 10px;
-  background: #ddd 50%;
+  background-color: #fff;
   position: relative;
   left: 15px;
   width: 147px;
@@ -87,12 +106,25 @@ div#menu {
 }
 div#menu dt {
   padding: 5px 10px;
-  background: #eee;
+  background-color: #ddd;
   font-weight: bold;
 }
+
+div#menu dt.closed:not(.editing):before {
+	font-family: 'Courier New',Courier,monospace;
+	font-weight: bold;
+	content: url(/plotke/images/arrow1.gif);
+	padding-right: 5px;
+}
+div#menu dt:not(.editing):before {
+	font-family: 'Courier New',Courier,monospace;
+	font-weight: bold;
+	content: url(/plotke/images/arrow2.gif);
+	padding-right: 5px;
+}
+
 div#menu dd {
 	margin: 0px;
-	border-top: 1px solid black;
 }
 div#menu ul {
 	margin: 0px;
@@ -112,8 +144,8 @@ div#menu li:hover {
  * page content / post list
  */
 div#contentbox {
-  padding: 10px 10px 0 10px;
-  background: #ddd 50%;
+  padding: 0 10px 0 10px;
+  background-color: #fff;
   position: relative;
   right: 15px;
   width: 547px;
@@ -122,14 +154,14 @@ div#contentbox {
 }
 div.contenttitle {
   padding: 5px 10px;
-  background: #eee;
-  margin-bottom: 10px;
+  background-color: #ddd;
   position: relative;
   color: #000;
   font-weight: bold;
+	margin-top: 1em;
 }
 div.contenttext {
-	background: #eee;
+	background-color: #fff;
 	padding: 5px 10px;
 	display: block;
   margin-bottom: 20px;
@@ -142,6 +174,16 @@ div.contenttext a {
 /*""""""""""""""""""""""""""""*\
  * interactive / editing
  */
+#message {
+	position: fixed;
+	z-index: 999;
+	width: 100%;
+	background-color: black;
+	color: white;
+	margin: -8px;
+	padding: 4px;
+	font-weight: bold;
+}
 .edit input { width: 100%; }
 .edit textarea {
 	width: 100%;

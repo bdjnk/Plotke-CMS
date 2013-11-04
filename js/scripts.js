@@ -47,9 +47,10 @@ function edit()
 		{
 			window.location = url;
 		}
-		if ($(this).hasClass("menu"))
+		if ($(this).hasClass("menu") && !$(this).hasClass("editing"))
 		{
 			$(this).next().toggleClass("hide");
+			$(this).toggleClass("closed");
 		}
 		return;
 	}
@@ -104,10 +105,18 @@ for (var i = 0; i < addable.length; i++)
 	addable[i].onclick = add;
 }
 
-function ctrl(bool)
+function shift(down)
 {
-	ctrlDown = bool;
-	addable.toggleClass("hide");
+	shiftDown = down;
+}
+function ctrl(down)
+{
+	ctrlDown = down;
+}
+function alt(down)
+{
+	altDown = down;
+	down ? addable.removeClass("hide") : addable.addClass("hide");
 }
 
 var shiftDown = false;
@@ -118,19 +127,30 @@ $(window).keydown(function(evt)
 		{
 			switch (evt.which)
 			{
-				case 16: shiftDown = true; break;
+				case 16: shift(true); break;
 				case 17: ctrl(true); break;
-				case 18: altDown = true; break;
+				case 18: alt(true); break;
 			}
 		}
 ).keyup(function(evt)
 		{
 			switch (evt.which)
 			{
-				case 16: shiftDown = false; break;
+				case 16: shift(false); break;
 				case 17: ctrl(false); break;
-				case 18: altDown = false; break;
+				case 18: alt(false); break;
 			}
 		}
 );
 
+$(window).blur(function()
+{
+	shift(false);
+	ctrl(false);
+	alt(false);
+	$("#message").removeClass("hide");
+});
+$(window).focus(function()
+{
+	$("#message").addClass("hide");
+});

@@ -38,6 +38,39 @@ if (!function_exists('get_page'))
 	}
 }
 
+if (!function_exists('get_posts'))
+{
+	function get_posts($page, $start = 0, $count = 10, $sort = "NULL", $author = "")
+	{
+		$db = opendb();
+		$query = "
+			SELECT
+				UNIX_TIMESTAMP(post.time_published) as time_published,
+				post.id,
+				post.title,
+				post.abstract,
+				author.name
+			FROM
+				post,
+				author
+			WHERE
+				post.page_id = $page
+				AND
+				author.name LIKE '%$author%'
+				AND
+				post.author_id = author.id
+			ORDER BY
+				$sort, time_published
+			LIMIT
+				$start, $count
+		";
+		if ($result = $db->query($query))
+		{
+			return $result;
+		}
+	}
+}
+
 if (!function_exists('get_pages'))
 {
 	function get_pages()
@@ -66,31 +99,21 @@ if (!function_exists('get_pages'))
 	}
 }
 
-if (!function_exists('get_posts'))
+if (!function_exists('get_post'))
 {
-	function get_posts($page, $start = 0, $count = 10, $sort = "NULL", $author = "")
+	function get_post($post)
 	{
 		$db = opendb();
 		$query = "
 			SELECT
-				UNIX_TIMESTAMP(post.time_published) as time_published,
-				post.id,
 				post.title,
 				post.abstract,
-				author.name
+				post.content,
+				post.time_published
 			FROM
-				post,
-				author
+				post
 			WHERE
-				post.page_id = $page
-				AND
-				author.name LIKE '%$author%'
-				AND
-				post.author_id = author.id
-			ORDER BY
-				$sort, time_published
-			LIMIT
-				$start, $count
+				post.id = $post
 		";
 		if ($result = $db->query($query))
 		{
