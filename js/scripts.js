@@ -3,18 +3,21 @@ var content;
 
 function save(elm)
 {
-	var edited = elm.parentNode;
-	if ($(edited).hasClass("text"))
+	var edited = $(elm).parent();
+	content = elm.value;
+	if (content == "") { content = "&nbsp;"; }
+
+	if (edited.hasClass("text"))
 	{
-		edited.innerHTML = elm.value;
+		edited.html(content);
 	} else
-	if ($(edited).hasClass("html"))
+	if (edited.hasClass("html"))
 	{
-		$(edited).data("markdown", elm.value);
-		edited.innerHTML = markdown.toHTML(elm.value);
+		edited.data("markdown", content);
+		edited.html(marked(content));
 	}
 	
-	$(edited).removeClass("editing");
+	edited.removeClass("editing");
 
 	if (!ctrlDown)// && edited.innerHTML.trim() != content)
 	{
@@ -23,9 +26,9 @@ function save(elm)
 			url: "lib/save.php",
 			data: {
 				value: elm.value,
-				table: edited.getAttribute("data-table"),
-				id: edited.getAttribute("data-uid"),
-				field: edited.getAttribute("data-field")
+				table: edited.attr("data-table"),
+				id: edited.attr("data-uid"),
+				field: edited.attr("data-field")
 			},
 			type: "POST",
 			done: function()
@@ -96,8 +99,11 @@ $(".edit").click(edit);
 var bad = $(".edit.html");
 for (var i = 0; i < bad.length; i++)
 {
-	$(bad[i]).data("markdown", $(bad[i]).html().trim());
-	$(bad[i]).html(markdown.toHTML($(bad[i]).html().trim()));
+	content = $(bad[i]).html().trim();
+	if (content == "") { content = "_"; }
+
+	$(bad[i]).data("markdown", content);
+	$(bad[i]).html(marked(content));
 }
 
 function add()

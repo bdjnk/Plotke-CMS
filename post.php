@@ -6,7 +6,6 @@
 	include_once("/usr/share/webapps/Plotke-CMS/lib/mysql.php");
 
 	$post = $_GET['post'];
-	$page = isset($_GET['page']) ? $_GET['page'] : 0;
 
 	define("FIRST", -1);
 ?>
@@ -108,7 +107,7 @@
 </div>
 
 <script type="text/javascript" src="js/jquery.js"></script>
-<script type="text/javascript" src="js/markdown.min.js"></script>
+<script type="text/javascript" src="js/marked.js"></script>
 <script type="text/javascript" src="js/scripts.js"></script>
 
 <!--for page specific script-->
@@ -116,7 +115,7 @@
 var page;
 $(document).ready(function()
 {
-	page = <?php echo $page ?>;
+	post = <?php echo $post ?>;
 });
 --></script>
 

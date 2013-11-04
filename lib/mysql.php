@@ -106,6 +106,7 @@ if (!function_exists('get_post'))
 		$db = opendb();
 		$query = "
 			SELECT
+				post.id,
 				post.title,
 				post.abstract,
 				post.content,
