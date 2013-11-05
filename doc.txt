@@ -1,0 +1,7 @@
+# Plotke CMS Documentation
+
+So far we've got three modes:
+
+*  add - Adding new elements. Could be folded into drag with cleverness.
+* drag - Rearranging elements. Also for deleting (/dev/null) and possibly adding.
+* edit - Altering elements value. Conflicts with navigation and dragging.

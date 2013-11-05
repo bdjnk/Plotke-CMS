@@ -19,7 +19,7 @@ function save(elm)
 	
 	edited.removeClass("editing");
 
-	if (!ctrlDown)// && edited.html.trim() != content)
+	if (!ctrlDown)// && edited.html().trim() != content)
 	{
 		// save to database
 		$.ajax({
@@ -112,6 +112,8 @@ function add()
 	}
 }
 
+var drag = null;
+
 $(document).ready(function()
 {
 	$(".edit").click(edit);
@@ -126,31 +128,38 @@ $(document).ready(function()
 		$(bad[i]).html(marked(content));
 	}
 
-	$(".edit.title").mousedown(function(e)
+	$(".drag").mousedown(function()
 	{
+		if (ctrlDown) { return; }
+		
+		drag = $(this);
+		drag.addClass("dragging");
+
 		$("head").append(
 			"<style type='text/css'>\n* {\n"+
-			"-webkit-touch-callout: none;\n"+
-			"-webkit-user-select: none;\n"+
-			"-khtml-user-select: none;\n"+
-			"-moz-user-select: none;\n"+
-			"-ms-user-select: none;\n"+
-			"user-select: none;\n"+
+			"	-webkit-touch-callout: none;\n"+
+			"	-webkit-user-select: none;\n"+
+			"	-khtml-user-select: none;\n"+
+			"	-moz-user-select: none;\n"+
+			"	-ms-user-select: none;\n"+
+			"	user-select: none;\n"+
 			"}\n</style>");
-		$("body").prepend("<div id='drag' class='title'>"+$(this).html()+"</div>");
-		$("#drag").offset({ left: e.pageX + 10, top: e.pageY });
-		$(document).mousemove(function(e)
-		{
-			$("#drag").offset({ left: e.pageX + 10, top: e.pageY });
-		});
+
+		$("#message").html("Dragging");
+		$("#message").removeClass("hide");
+	});
+	$(".drop").mouseup(function()
+	{
+		alert("found a drop!");
 	});
 	$(document).mouseup(function()
 	{
-		if ($("#drag").length != 0)
-		{
-			$("head").children("style").last().remove();
-			$("#drag").remove();
-		}
+		if (drag == null) { return; }
+		
+		drag.removeClass("dragging");
+		$("#message").addClass("hide");
+		$("head").children("style").last().remove();
+		drag = null;
 	});
 
 	$(".new").click(add);
@@ -200,6 +209,7 @@ $(window).blur(function()
 	shift(false);
 	ctrl(false);
 	alt(false);
+	$("#message").html("Window Unfocused");
 	$("#message").removeClass("hide");
 });
 $(window).focus(function()

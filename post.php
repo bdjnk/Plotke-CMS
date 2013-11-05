@@ -27,13 +27,13 @@ $(document).ready(function()
 </head>
 
 <body>
-<div id="message" class="hide">Window Unfocused</div>
+<div id="message" class="hide"></div>
 
 <div id="wrapper">
   
   <div class="spacer"></div>
 
-	<div id="titlebox">
+	<div id="header">
 <?php
 	$result = get_post($post);
 	if ($row = $result->fetch_assoc()) { ?>
@@ -64,7 +64,7 @@ $(document).ready(function()
   
   <div class="spacer" style="clear: both;"></div>
   
-  <div id="footerbox">
+  <div id="footer">
     <div id="stupid">&nbsp;</div>
     <div id="note">
 			This page validates as HTML 4.01 Strict: <a href="http://validator.w3.org/check/referer">check</a>.

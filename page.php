@@ -27,13 +27,13 @@ $(document).ready(function()
 </head>
 
 <body>
-<div id="message" class="hide">Window Unfocused</div>
+<div id="message" class="hide"></div>
 
 <div id="wrapper">
   
   <div class="spacer"></div>
 
-	<div id="titlebox">
+	<div id="header">
 <?php
 	$result = get_info($page);
 	if ($row = $result->fetch_assoc()) { ?>
@@ -54,15 +54,7 @@ $(document).ready(function()
 	while ($row = $result->fetch_assoc()) {
 		$info = strftime("%Y, %B %d at %R", $row['time_published'])." by ".$row['name']; ?>
 		<div class="post">
-			<div class="title alter">
-				&nbsp;
-				<ul>
-					<li>Delete</li>
-					<li>Publish</li>
-					<li>Author</li>
-				</ul>
-			</div>
-			<div class="title edit text" data-url="?post=<?php echo $row['id'] ?>" title="<?php echo $info; ?>" data-table="post" data-uid="<?php echo $row['id'] ?>" data-field="title">
+			<div class="title edit text drag" data-url="?post=<?php echo $row['id'] ?>" title="<?php echo $info; ?>" data-table="post" data-uid="<?php echo $row['id'] ?>" data-field="title">
 	<?php
 		echo $row['title']; ?>
 		  </div>
@@ -77,7 +69,7 @@ $(document).ready(function()
   
   <div class="spacer" style="clear: both;"></div>
   
-  <div id="footerbox">
+  <div id="footer">
     <div id="stupid">&nbsp;</div>
     <div id="note">
 			This page validates as HTML 4.01 Strict: <a href="http://validator.w3.org/check/referer">check</a>.
