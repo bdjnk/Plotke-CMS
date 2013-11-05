@@ -126,6 +126,33 @@ $(document).ready(function()
 		$(bad[i]).html(marked(content));
 	}
 
+	$(".edit.title").mousedown(function(e)
+	{
+		$("head").append(
+			"<style type='text/css'>\n* {\n"+
+			"-webkit-touch-callout: none;\n"+
+			"-webkit-user-select: none;\n"+
+			"-khtml-user-select: none;\n"+
+			"-moz-user-select: none;\n"+
+			"-ms-user-select: none;\n"+
+			"user-select: none;\n"+
+			"}\n</style>");
+		$("body").prepend("<div id='drag' class='title'>"+$(this).html()+"</div>");
+		$("#drag").offset({ left: e.pageX + 10, top: e.pageY });
+		$(document).mousemove(function(e)
+		{
+			$("#drag").offset({ left: e.pageX + 10, top: e.pageY });
+		});
+	});
+	$(document).mouseup(function()
+	{
+		if ($("#drag").length != 0)
+		{
+			$("head").children("style").last().remove();
+			$("#drag").remove();
+		}
+	});
+
 	$(".new").click(add);
 });
 
@@ -136,6 +163,7 @@ function shift(down)
 function ctrl(down)
 {
 	ctrlDown = down;
+	down ? $(".alter").removeClass("hide") : $(".alter").addClass("hide");
 }
 function alt(down)
 {

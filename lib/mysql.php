@@ -106,15 +106,19 @@ if (!function_exists('get_post'))
 		$db = opendb();
 		$query = "
 			SELECT
+				UNIX_TIMESTAMP(post.time_published) as time_published,
 				post.id,
 				post.title,
 				post.abstract,
 				post.content,
-				post.time_published
+				author.name
 			FROM
-				post
+				post,
+				author
 			WHERE
 				post.id = $post
+				AND
+				post.author_id = author.id
 		";
 		if ($result = $db->query($query))
 		{

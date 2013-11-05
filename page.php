@@ -47,14 +47,14 @@ $(document).ready(function()
    
 <?php include(getcwd()."/menu.php"); ?>
 
-	<div id="contentbox">
-		<div class="new post hide contenttitle">new_post</div>
+	<div id="content">
+		<div class="new post hide title">new_post</div>
 <?php
 	$result = get_posts($page);
 	while ($row = $result->fetch_assoc()) {
 		$info = strftime("%Y, %B %d at %R", $row['time_published'])." by ".$row['name']; ?>
 		<div class="post">
-			<div class="contenttitle settings">
+			<div class="title alter">
 				&nbsp;
 				<ul>
 					<li>Delete</li>
@@ -62,11 +62,11 @@ $(document).ready(function()
 					<li>Author</li>
 				</ul>
 			</div>
-			<div class="contenttitle edit text" data-url="?post=<?php echo $row['id'] ?>" title="<?php echo $info; ?>" data-table="post" data-uid="<?php echo $row['id'] ?>" data-field="title">
+			<div class="title edit text" data-url="?post=<?php echo $row['id'] ?>" title="<?php echo $info; ?>" data-table="post" data-uid="<?php echo $row['id'] ?>" data-field="title">
 	<?php
 		echo $row['title']; ?>
 		  </div>
-			<div class="contenttext edit html" data-table="post" data-uid="<?php echo $row['id'] ?>" data-field="abstract">
+			<div class="body edit html" data-table="post" data-uid="<?php echo $row['id'] ?>" data-field="abstract">
 	<?php
 		echo $row['abstract']; ?>
 			</div>

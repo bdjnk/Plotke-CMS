@@ -47,13 +47,15 @@ $(document).ready(function()
   
 <?php include(getcwd()."/menu.php"); ?>
 
-	<div id="contentbox">
+	<div id="content">
 <?php
 	$result = get_post($post);
 	while ($row = $result->fetch_assoc()) {
 		//$info = strftime("%Y, %B %d at %R", $row['time_published'])." by ".$row['name']; ?>
-		<div class="contenttitle"></div>
-		<div class="contenttext edit html" data-table="post" data-uid="<?php echo $row['id'] ?>" data-field="content">
+		<div class="title">
+	<?php echo strftime("%Y, %B %d at %R", $row['time_published'])." by ".$row['name']; ?>
+		</div>
+		<div class="body edit html" data-table="post" data-uid="<?php echo $row['id'] ?>" data-field="content">
 	<?php echo $row['content']; ?>
 		</div>
 <?php
