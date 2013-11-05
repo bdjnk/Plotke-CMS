@@ -1,18 +1,7 @@
 <?php
-	error_reporting(E_ALL); ini_set("display_errors", 1);
-
-	date_default_timezone_set('America/Los_Angeles'); setlocale(LC_ALL, 'us_US');
-
-	include_once("/usr/share/webapps/Plotke-CMS/lib/mysql.php");
-
 	$page = isset($_GET['page']) ? $_GET['page'] : 0;
-
-	define("FIRST", -1);
 ?>
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
-
-<html lang="en">
 <head>
 
 <title>Homepage - bdjnk</title>
@@ -25,6 +14,15 @@
 <!--for page specific styles-->
 <style type="text/css">
 </style>
+
+<!--for page specific script-->
+<script type="text/javascript"><!--
+var page;
+$(document).ready(function()
+{
+	page = <?php echo $page ?>;
+});
+--></script>
 
 </head>
 
@@ -46,55 +44,32 @@
 <?php
 	} ?>
   </div>
-  
-  <div class="spacer"></div>
+   
+<?php include(getcwd()."/menu.php"); ?>
 
-	<div id="menu">
-<?php
-	$result = get_pages();
-	$pcat = FIRST;
-	while ($row = $result->fetch_assoc()) {
-		$cat = $row['cat'];
-		if ($pcat != $cat) {
-			if ($pcat != FIRST) { ?>
-					<li class="new page hide">new_page</li>
-				</ul>
-			</dd>
-		</dl>
-		<?php
-			} ?>
-		<dl>
-			<dt class="menu edit text"><?php echo $row['title']; ?></dt>
-			<dd>
-				<ul>
-	<?php
-		} if (isset($row['id'])) { ?>
-					<li data-url="?page=<?php echo $row['id']; ?>" class="edit text">
-						<?php echo $row['short_title']; ?></li>
-	<?php
-		} $pcat = $cat; } ?>
-					<li class="new page hide">new_page</li>
-				</ul>
-			</dd>
-		</dl>
-		<dl>
-			<dt class="new category hide">new_category</dt>
-		</dl>
-  </div>
-  
 	<div id="contentbox">
 		<div class="new post hide contenttitle">new_post</div>
 <?php
 	$result = get_posts($page);
 	while ($row = $result->fetch_assoc()) {
 		$info = strftime("%Y, %B %d at %R", $row['time_published'])." by ".$row['name']; ?>
-		<div class="contenttitle edit text" data-url="?post=<?php echo $row['id'] ?>" title="<?php echo $info; ?>" data-table="post" data-uid="<?php echo $row['id'] ?>" data-field="title">
+		<div class="post">
+			<div class="contenttitle settings">
+				&nbsp;
+				<ul>
+					<li>Delete</li>
+					<li>Publish</li>
+					<li>Author</li>
+				</ul>
+			</div>
+			<div class="contenttitle edit text" data-url="?post=<?php echo $row['id'] ?>" title="<?php echo $info; ?>" data-table="post" data-uid="<?php echo $row['id'] ?>" data-field="title">
 	<?php
 		echo $row['title']; ?>
-    </div>
-		<div class="contenttext edit html" data-table="post" data-uid="<?php echo $row['id'] ?>" data-field="abstract">
+		  </div>
+			<div class="contenttext edit html" data-table="post" data-uid="<?php echo $row['id'] ?>" data-field="abstract">
 	<?php
 		echo $row['abstract']; ?>
+			</div>
 		</div>
 <?php
 	} ?>
@@ -110,19 +85,4 @@
   </div>
 
 </div>
-
-<script type="text/javascript" src="js/jquery.js"></script>
-<script type="text/javascript" src="js/marked.js"></script>
-<script type="text/javascript" src="js/scripts.js"></script>
-
-<!--for page specific script-->
-<script type="text/javascript"><!--
-var page;
-$(document).ready(function()
-{
-	page = <?php echo $page ?>;
-});
---></script>
-
 </body>
-</html>

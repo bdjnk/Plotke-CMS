@@ -145,7 +145,7 @@ div#menu li:hover {
  * page content / post list
  */
 div#contentbox {
-  padding: 0 10px 0 10px;
+  padding: 1em 10px 0 10px;
   background-color: #fff;
   position: relative;
   right: 15px;
@@ -159,7 +159,6 @@ div.contenttitle {
   position: relative;
   color: #000;
   font-weight: bold;
-	margin-top: 1em;
 }
 div.contenttext {
 	background-color: #fff;
@@ -192,3 +191,36 @@ div.contenttext a {
 }
 
 .hide { display: none; }
+
+div.settings {
+	font-weight: normal;
+	z-index: 990;
+	border-left: 2px solid #fff;
+	width: 5px;
+	position: absolute;
+	top: 0;
+	right: 0;
+}
+div.settings ul {
+	background-color: #fff;
+	padding: 0;
+	margin: 0;
+	list-style: none;
+	position: absolute;
+	width: 75px;
+	left: -999em;
+	border: 2px solid #bbb;
+}
+div.settings:hover ul {
+	left: -50px;
+}
+div.settings li {
+	padding: 6px;
+}
+div.settings li:hover {
+	background-color: #ddd;
+	font-weight: bold;
+}
+div.post {
+	position: relative;
+}

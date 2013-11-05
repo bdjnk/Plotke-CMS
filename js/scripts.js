@@ -19,7 +19,7 @@ function save(elm)
 	
 	edited.removeClass("editing");
 
-	if (!ctrlDown)// && edited.innerHTML.trim() != content)
+	if (!ctrlDown)// && edited.html.trim() != content)
 	{
 		// save to database
 		$.ajax({
@@ -94,35 +94,40 @@ function edit()
 	});
 }
 
-$(".edit").click(edit);
-
-var bad = $(".edit.html");
-for (var i = 0; i < bad.length; i++)
-{
-	content = $(bad[i]).html().trim();
-	if (content == "") { content = "_"; }
-
-	$(bad[i]).data("markdown", content);
-	$(bad[i]).html(marked(content));
-}
-
 function add()
 {
-	if ($(this).hasClass("page"))
+	var field = $(this);
+
+	if (field.hasClass("page"))
 	{
 		console.log("new page");
 	} else
-	if ($(this).hasClass("category"))
+	if (field.hasClass("category"))
 	{
 		console.log("new category");
 	} else
-	if ($(this).hasClass("post"))
+	if (field.hasClass("post"))
 	{
 		console.log("new post");
 	}
 }
 
-$(".new").click(add);
+$(document).ready(function()
+{
+	$(".edit").click(edit);
+
+	var bad = $(".edit.html");
+	for (var i = 0; i < bad.length; i++)
+	{
+		content = $(bad[i]).html().trim();
+		if (content == "") { content = "_"; }
+
+		$(bad[i]).data("markdown", content);
+		$(bad[i]).html(marked(content));
+	}
+
+	$(".new").click(add);
+});
 
 function shift(down)
 {

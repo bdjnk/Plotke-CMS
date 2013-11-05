@@ -1,18 +1,7 @@
 <?php
-	error_reporting(E_ALL); ini_set("display_errors", 1);
-
-	date_default_timezone_set('America/Los_Angeles'); setlocale(LC_ALL, 'us_US');
-
-	include_once("/usr/share/webapps/Plotke-CMS/lib/mysql.php");
-
 	$post = $_GET['post'];
-
-	define("FIRST", -1);
 ?>
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
-
-<html lang="en">
 <head>
 
 <title>Homepage - bdjnk</title>
@@ -25,6 +14,15 @@
 <!--for page specific styles-->
 <style type="text/css">
 </style>
+
+<!--for page specific script-->
+<script type="text/javascript"><!--
+var page;
+$(document).ready(function()
+{
+	post = <?php echo $post ?>;
+});
+--></script>
 
 </head>
 
@@ -47,41 +45,8 @@
 	} ?>
   </div>
   
-  <div class="spacer"></div>
+<?php include(getcwd()."/menu.php"); ?>
 
-	<div id="menu">
-<?php
-	$result = get_pages();
-	$pcat = FIRST;
-	while ($row = $result->fetch_assoc()) {
-		$cat = $row['cat'];
-		if ($pcat != $cat) {
-			if ($pcat != FIRST) { ?>
-					<li class="new page hide">new_page</li>
-				</ul>
-			</dd>
-		</dl>
-		<?php
-			} ?>
-		<dl>
-			<dt class="menu edit text"><?php echo $row['title']; ?></dt>
-			<dd>
-				<ul>
-	<?php
-		} if (isset($row['id'])) { ?>
-					<li data-url="?page=<?php echo $row['id']; ?>" class="edit text">
-						<?php echo $row['short_title']; ?></li>
-	<?php
-		} $pcat = $cat; } ?>
-					<li class="new page hide">new_page</li>
-				</ul>
-			</dd>
-		</dl>
-		<dl>
-			<dt class="new category hide">new_category</dt>
-		</dl>
-  </div>
-  
 	<div id="contentbox">
 <?php
 	$result = get_post($post);
@@ -105,19 +70,4 @@
   </div>
 
 </div>
-
-<script type="text/javascript" src="js/jquery.js"></script>
-<script type="text/javascript" src="js/marked.js"></script>
-<script type="text/javascript" src="js/scripts.js"></script>
-
-<!--for page specific script-->
-<script type="text/javascript"><!--
-var page;
-$(document).ready(function()
-{
-	post = <?php echo $post ?>;
-});
---></script>
-
 </body>
-</html>
