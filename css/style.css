@@ -121,7 +121,7 @@ a:hover { color: #000; }
 a:active { color: #000; }
 
 div#menu dl {
-	margin-top: 10px;
+	margin: 10px 0;
 }
 div#menu dt {
   padding: 5px 10px;
@@ -143,14 +143,14 @@ div#menu dd {
 }
 div#menu ul {
 	margin: 0 0 15px 0;
+	padding-left: 10px;
+	width: 120px;
 }
 div#menu li {
   list-style-type: none;
   position: relative;
-	left: -30px;
   padding: 2px 4px;
-	margin-top: 4px;
-	width: 120px;
+	margin: 4px 0;
 }
 div#menu li:hover {
 	text-decoration: underline;
@@ -160,13 +160,17 @@ div#menu li:hover {
  * page content / post list
  */
 div#content {
-  padding: 10px 10px 0 10px;
+  padding: 0 10px 10px 10px;
   background-color: #fff;
   position: relative;
   right: 15px;
   width: 547px;
   float: right;
   color: #000;
+}
+div.post {
+	position: relative;
+	margin-top: 10px;
 }
 div.title {
   padding: 5px 10px;
@@ -210,6 +214,21 @@ div.text a {
 }
 
 .hide { display: none; }
+
+div.new {
+	position: relative;
+	padding: 1px 0;
+	background-color: #7785ff;
+	display: none;
+}
+div.new > div {
+	z-index: 980;
+	position: absolute;
+	padding: 9px 0;
+	width: 100%;
+	top: -9px;
+	background-color: transparent;
+}
 
 div#edit {
   padding: 10px 10px 0 10px;
@@ -263,7 +282,3 @@ div.alter li {
 div.alter li:hover {
 	background-color: #ddd;
 }
-div.post {
-	position: relative;
-}
-

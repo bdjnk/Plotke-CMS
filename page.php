@@ -48,7 +48,7 @@ $(document).ready(function()
 <?php include(getcwd()."/menu.php"); ?>
 
 	<div id="content">
-		<div class="new post hide title">new_post</div>
+		<div id="post" class="new"><div></div></div>
 <?php
 	$result = get_posts($page);
 	while ($row = $result->fetch_assoc()) {

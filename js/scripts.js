@@ -50,6 +50,7 @@ function save(elm)
 function edit()
 {
 	var field = $(this);
+	if (field.hasClass("editing")) { return; }
 
 	if (!ctrlDown)
 	{
@@ -65,7 +66,6 @@ function edit()
 		}
 		return;
 	}
-	if (field.hasClass("editing")) { return; }
 
 	if (field.hasClass("text"))
 	{
@@ -133,6 +133,7 @@ $(document).ready(function()
 		if (ctrlDown) { return; }
 		
 		drag = $(this);
+		if (drag.hasClass("editing")) { return; }
 		drag.addClass("dragging");
 
 		$("head").append(
@@ -147,22 +148,72 @@ $(document).ready(function()
 
 		$("#message").html("Dragging");
 		$("#message").removeClass("hide");
+
+		if (drag.attr("data-func") == "mk")
+		{
+			$(".new").show();
+			$("div#menu li").css("padding", "0 4px");
+		}
 	});
+	
 	$(".drop").mouseup(function()
 	{
-		alert("found a drop!");
+		drop = $(this);
+		if (drop.attr("data-func") == "rm")
+		{
+			if (drag.parent().hasClass("post"))
+			{
+				drag.parent().remove();
+			}
+		}
+	}).mouseover(function()
+	{
+		if (drag == null) { return; }
+		if (!drag.hasClass("edit")) { return; }
+
+		drop = $(this);
+		if (drop.attr("data-func") == "rm")
+		{
+			drop.css("background-color", "#bb0202").css("color", "#fff");
+		} else
+		if (drop.attr("data-func") == "mv" && drag.parent().hasClass("post"))
+		{
+			drop.css("background-color", "#00bb0d").css("color", "#fff");
+		}
+	}).mouseout(function()
+	{
+		drop = $(this);
+		drop.css("background-color", "").css("color", "");
 	});
+
+	($(".new").children()).mouseover(function()
+	{
+		$(this).parent().css("background-color", "#0013bb");
+	}).mouseout(function()
+	{
+		$(this).parent().css("background-color", "");
+	});
+
 	$(document).mouseup(function()
 	{
 		if (drag == null) { return; }
-		
+
+		if (drag.attr("data-func") == "mk")
+		{
+			$(".new").hide();
+			$("div#menu li").css("padding", "");
+		}
+
 		drag.removeClass("dragging");
 		$("#message").addClass("hide");
 		$("head").children("style").last().remove();
 		drag = null;
-	});
+		
+		if (drop == null) { return; }
 
-	$(".new").click(add);
+		drop.css("background-color", "").css("color", "");
+		drop = null;
+	});
 });
 
 function shift(down)
@@ -172,12 +223,20 @@ function shift(down)
 function ctrl(down)
 {
 	ctrlDown = down;
-	down ? $(".alter").removeClass("hide") : $(".alter").addClass("hide");
+	if (down)
+	{
+		$("#message").html("Edit Mode");
+		$("#message").removeClass("hide");
+	}
+	else
+	{
+		$("#message").html("");
+		$("#message").addClass("hide");
+	}
 }
 function alt(down)
 {
 	altDown = down;
-	down ? $(".new").removeClass("hide") : $(".new").addClass("hide");
 }
 
 var shiftDown = false;
