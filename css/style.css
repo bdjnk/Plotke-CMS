@@ -152,6 +152,13 @@ div#menu li {
   padding: 2px 4px;
 	margin: 4px 0;
 }
+div#menu li.live {
+	background-color: #00bb0d;
+	color: #fff;
+}
+div#menu li.squish {
+	padding: 0 4px;
+}
 div#menu li:hover {
 	text-decoration: underline;
 }
@@ -221,6 +228,9 @@ div.new {
 	background-color: #7785ff;
 	display: none;
 }
+div.new.show {
+	display: block;
+}
 div.new > div {
 	z-index: 980;
 	position: absolute;
@@ -228,6 +238,9 @@ div.new > div {
 	width: 100%;
 	top: -9px;
 	background-color: transparent;
+}
+div.new.live {
+	background-color: #0013bb;
 }
 
 div#edit {
@@ -249,6 +262,10 @@ div#edit li {
   font-weight: bold;
 	text-align: center;
 	margin-bottom: 10px;
+}
+div#edit li.live {
+	background-color: #bb0202;
+	color: #fff;
 }
 
 /*""""""""""""""""""""""""""""*\

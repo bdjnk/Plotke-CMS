@@ -128,13 +128,11 @@ $(document).ready(function()
 		$(bad[i]).html(marked(content));
 	}
 
+	// todo: move all .css() crap out
+
 	$(".drag").mousedown(function()
 	{
 		if (ctrlDown) { return; }
-		
-		drag = $(this);
-		if (drag.hasClass("editing")) { return; }
-		drag.addClass("dragging");
 
 		$("head").append(
 			"<style type='text/css'>\n* {\n"+
@@ -145,21 +143,30 @@ $(document).ready(function()
 			"	-ms-user-select: none;\n"+
 			"	user-select: none;\n"+
 			"}\n</style>");
+		
+		drag = $(this);
 
-		$("#message").html("Dragging");
-		$("#message").removeClass("hide");
-
-		if (drag.attr("data-func") == "mk")
+		drag.mouseout(function()
 		{
-			$(".new").show();
-			$("div#menu li").css("padding", "0 4px");
-		}
+			if (drag.hasClass("editing")) { return; }
+			drag.addClass("dragging");
+
+			$("#message").html("Dragging");
+			$("#message").removeClass("hide");
+
+			if (drag.hasClass("create"))
+			{
+				$(".new").addClass("show");
+				$("div#menu li").addClass("squish");
+				//$("div#menu li").css("padding", "0 4px");
+			}
+		});
 	});
 	
 	$(".drop").mouseup(function()
 	{
 		drop = $(this);
-		if (drop.attr("data-func") == "rm")
+		if (drop.hasClass("delete"))
 		{
 			if (drag.parent().hasClass("post"))
 			{
@@ -172,36 +179,36 @@ $(document).ready(function()
 		if (!drag.hasClass("edit")) { return; }
 
 		drop = $(this);
-		if (drop.attr("data-func") == "rm")
+		if (drop.hasClass("delete"))
 		{
-			drop.css("background-color", "#bb0202").css("color", "#fff");
+			drop.addClass("live");
 		} else
-		if (drop.attr("data-func") == "mv" && drag.parent().hasClass("post"))
+		if (drop.hasClass("sendto") && drag.parent().hasClass("post"))
 		{
-			drop.css("background-color", "#00bb0d").css("color", "#fff");
+			drop.addClass("live");
 		}
 	}).mouseout(function()
 	{
 		drop = $(this);
-		drop.css("background-color", "").css("color", "");
+		drop.removeClass("live");
 	});
 
 	($(".new").children()).mouseover(function()
 	{
-		$(this).parent().css("background-color", "#0013bb");
+		$(this).parent().toggleClass("live");
 	}).mouseout(function()
 	{
-		$(this).parent().css("background-color", "");
+		$(this).parent().toggleClass("live");
 	});
 
 	$(document).mouseup(function()
 	{
 		if (drag == null) { return; }
 
-		if (drag.attr("data-func") == "mk")
+		if (drag.hasClass("create"))
 		{
-			$(".new").hide();
-			$("div#menu li").css("padding", "");
+			$(".new").removeClass("show");
+			$("div#menu li").removeClass("squish");
 		}
 
 		drag.removeClass("dragging");
@@ -211,7 +218,7 @@ $(document).ready(function()
 		
 		if (drop == null) { return; }
 
-		drop.css("background-color", "").css("color", "");
+		drop.removeClass("live");
 		drop = null;
 	});
 });

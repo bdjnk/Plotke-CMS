@@ -13,6 +13,8 @@
 
 <head>
 
+<link href="css/style.css" rel="stylesheet" type="text/css">
+
 <script type="text/javascript" src="js/jquery.js"></script>
 <script type="text/javascript" src="js/marked.js"></script>
 <script type="text/javascript" src="js/scripts.js"></script>

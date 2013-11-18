@@ -22,7 +22,7 @@
 					<div class="new page"><div></div></div>
 	<?php
 		} if (isset($row['id'])) { ?>
-					<li class="edit text drag drop" data-url="?page=<?php echo $row['id']; ?>" data-func="mv">
+					<li class="edit text drag drop sendto" data-url="?page=<?php echo $row['id']; ?>">
 						<?php echo $row['short_title']; ?></li>
 					<div class="new page"><div></div></div>
 	<?php
@@ -34,8 +34,8 @@
 	</div>
 	<div id="edit">
 		<ul>
-			<li data-func="mk" class="drag">make new</li>
-			<li data-func="rm" class="drop">/dev/null</li>
+			<li class="drag create">make new</li>
+			<li class="drop delete">/dev/null</li>
 		</ul>
 	</div>
 	<!-- This space for ads ;) -->
