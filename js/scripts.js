@@ -25,6 +25,7 @@ function save(elm)
 		$.ajax({
 			url: "lib/save.php",
 			data: {
+				action: "update",
 				value: elm.value,
 				table: edited.attr("data-table"),
 				id: edited.attr("data-uid"),
@@ -94,26 +95,26 @@ function edit()
 	});
 }
 
+var create = null;
+
 function add()
 {
-	var field = $(this);
-
-	if (field.hasClass("page"))
-	{
-		console.log("new page");
-	} else
-	if (field.hasClass("category"))
-	{
-		console.log("new category");
-	} else
-	if (field.hasClass("post"))
-	{
-		console.log("new post");
-	}
+	console.log("new "+create.attr("data-new"));
+	$.ajax({
+		url: "lib/save.php",
+		data: {
+			action: "create",
+			table: create.attr("data-new")	
+		}
+	});
 }
 
 var drag = null;
+var drop = null;
 
+/*""""""""""""""""""""""""""""""""""""""""""""""""""""""""*\
+ * Once the document is fully loaded, set interactions
+ */
 $(document).ready(function()
 {
 	$(".edit").click(edit);
@@ -127,8 +128,6 @@ $(document).ready(function()
 		$(bad[i]).data("markdown", content);
 		$(bad[i]).html(marked(content));
 	}
-
-	// todo: move all .css() crap out
 
 	$(".drag").mousedown(function()
 	{
@@ -148,6 +147,7 @@ $(document).ready(function()
 
 		drag.mouseout(function()
 		{
+			if (drag == null) { return; }
 			if (drag.hasClass("editing")) { return; }
 			drag.addClass("dragging");
 
@@ -158,7 +158,6 @@ $(document).ready(function()
 			{
 				$(".new").addClass("show");
 				$("div#menu li").addClass("squish");
-				//$("div#menu li").css("padding", "0 4px");
 			}
 		});
 	});
@@ -195,10 +194,13 @@ $(document).ready(function()
 
 	($(".new").children()).mouseover(function()
 	{
-		$(this).parent().toggleClass("live");
+		create = $(this).parent();
+		create.addClass("live");
+
 	}).mouseout(function()
 	{
-		$(this).parent().toggleClass("live");
+		$(this).parent().removeClass("live");
+		create = null;
 	});
 
 	$(document).mouseup(function()
@@ -209,6 +211,12 @@ $(document).ready(function()
 		{
 			$(".new").removeClass("show");
 			$("div#menu li").removeClass("squish");
+
+			if (create != null)
+			{
+				add();
+				create = null;
+			}
 		}
 
 		drag.removeClass("dragging");

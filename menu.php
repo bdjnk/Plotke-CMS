@@ -14,23 +14,23 @@
 		</dl>
 		<?php
 			} ?>
-		<div class="new cat"><div></div></div>
+		<div class="new" data-new="category"><div></div></div>
 		<dl>
 			<dt class="menu edit text drag"><?php echo $row['title']; ?></dt>
 			<dd>
 				<ul>
-					<div class="new page"><div></div></div>
+					<div class="new" data-new="page"><div></div></div>
 	<?php
 		} if (isset($row['id'])) { ?>
 					<li class="edit text drag drop sendto" data-url="?page=<?php echo $row['id']; ?>">
 						<?php echo $row['short_title']; ?></li>
-					<div class="new page"><div></div></div>
+					<div class="new" data-new="page"><div></div></div>
 	<?php
 		} $pcat = $cat; } ?>
 				</ul>
 			</dd>
 		</dl>
-		<div class="new cat"><div></div></div>
+		<div class="new" data-new="category"><div></div></div>
 	</div>
 	<div id="edit">
 		<ul>
