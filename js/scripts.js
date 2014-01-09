@@ -157,7 +157,19 @@ $(document).ready(function()
 			if (drag.hasClass("create"))
 			{
 				$(".new").addClass("show");
+				$("div[data-new='post'] :first-child").height(
+					$("div[data-new='post']").parent().height());
+				$("div#menu ul").addClass("squish");
 				$("div#menu li").addClass("squish");
+			}
+			if (drag.data("table") == "page")
+			{
+				$("div[data-new='page']").addClass("show");
+				$("div#menu li").addClass("squish");
+			}
+			if (drag.data("table") == "category")
+			{
+				$("div[data-new='category']").addClass("show");
 			}
 		});
 	});
@@ -207,10 +219,11 @@ $(document).ready(function()
 	{
 		if (drag == null) { return; }
 
-		if (drag.hasClass("create"))
+		//if (drag.hasClass("create"))
 		{
 			$(".new").removeClass("show");
 			$("div#menu li").removeClass("squish");
+			$("div#menu ul").removeClass("squish");
 
 			if (create != null)
 			{

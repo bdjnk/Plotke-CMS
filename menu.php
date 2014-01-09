@@ -16,13 +16,15 @@
 			} ?>
 		<div class="new" data-new="category"><div></div></div>
 		<dl>
-			<dt class="menu edit text drag"><?php echo $row['title']; ?></dt>
+		<dt class="menu edit text drag" data-table="category" data-uid="<?php echo$cat?>" data-field="title">
+				<?php echo $row['title']; ?>
+			</dt>
 			<dd>
 				<ul>
 					<div class="new" data-new="page"><div></div></div>
 	<?php
 		} if (isset($row['id'])) { ?>
-					<li class="edit text drag drop sendto" data-url="?page=<?php echo $row['id']; ?>">
+					<li class="edit text drag drop sendto" data-table="page" data-uid="<?php echo$row['id']?>" data-field="short_title" data-url="?page=<?php echo $row['id']; ?>">
 						<?php echo $row['short_title']; ?></li>
 					<div class="new" data-new="page"><div></div></div>
 	<?php

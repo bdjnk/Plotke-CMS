@@ -89,7 +89,9 @@ if (!function_exists('get_pages'))
 						ON
 							category.id = page.category_id
 			ORDER BY
+				category.order,
 				category.title,
+				page.order,
 				page.short_title
 		";
 		if ($result = $db->query($query))
