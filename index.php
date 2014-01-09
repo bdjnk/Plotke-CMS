@@ -12,8 +12,12 @@
 <html lang="en">
 
 <head>
+<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
 
 <link href="css/style.css" rel="stylesheet" type="text/css">
+
+<link href="css/hljs-default.css" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="js/highlight.pack.js"></script>
 
 <script type="text/javascript" src="js/jquery.js"></script>
 <script type="text/javascript" src="js/marked.js"></script>

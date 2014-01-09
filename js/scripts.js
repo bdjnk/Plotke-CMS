@@ -15,6 +15,10 @@ function save(elm)
 	{
 		edited.data("markdown", content);
 		edited.html(marked(content));
+		$("pre code").each(function(index, code)
+		{
+			hljs.highlightBlock(code)
+		});
 	}
 	
 	edited.removeClass("editing");
@@ -128,6 +132,10 @@ $(document).ready(function()
 		$(bad[i]).data("markdown", content);
 		$(bad[i]).html(marked(content));
 	}
+	$("pre code").each(function(index, code)
+	{
+		hljs.highlightBlock(code)
+	});
 
 	$(".drag").mousedown(function()
 	{

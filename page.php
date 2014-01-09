@@ -33,9 +33,9 @@ $(document).ready(function()
 <?php
 	$result = get_info($page);
 	if ($row = $result->fetch_assoc()) { ?>
-		<div class="edit text" id="title" data-table="page" data-uid="<?php echo $page ?>" data-field="long_title">
+		<div class="edit text" id="title" data-table="page" data-uid="<?php echo$page?>" data-field="long_title">
 	<?php echo $row['long_title'] ?></div>
-		<div class="edit text" id="subtitle" data-table="page" data-uid="<?php echo $page ?>" data-field="description">
+		<div class="edit text" id="subtitle" data-table="page" data-uid="<?php echo$page?>" data-field="description">
 	<?php echo $row['description'] ?></div>
 <?php
 	} ?>

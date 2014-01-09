@@ -27,7 +27,8 @@ code {
 	font-family:
 	'DejaVu Sans Mono',
 	'Courier New', monospace;
-	background-color: #eee;
+	background-color: #f0f0f0;
+	overflow: auto;
 }
 img { border:none; }
 
