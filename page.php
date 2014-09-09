@@ -32,7 +32,7 @@ $(document).ready(function()
 	<div id="header">
 <?php
 	$result = get_info($page);
-	if ($row = $result->fetch_assoc()) { ?>
+	if ($result and $row = $result->fetch_assoc()) { ?>
 		<div class="edit text" id="title" data-table="page" data-uid="<?php echo$page?>" data-field="long_title">
 	<?php echo $row['long_title'] ?></div>
 		<div class="edit text" id="subtitle" data-table="page" data-uid="<?php echo$page?>" data-field="description">
@@ -44,10 +44,10 @@ $(document).ready(function()
 <?php include(getcwd()."/menu.php"); ?>
 
 	<div id="content">
-		<div class="new" data-new="post"><div></div></div>
+		<div class="new" data-new="post" data-pid="<?php echo$page?>"><div></div></div>
 <?php
 	$result = get_posts($page);
-	while ($row = $result->fetch_assoc()) {
+	while ($result and $row = $result->fetch_assoc()) {
 		$info = strftime("%Y, %B %d at %R", $row['time_published'])." by ".$row['name']; ?>
 		<div class="post">
 			<div class="title edit text drag" data-url="?post=<?php echo $row['id'] ?>" title="<?php echo $info; ?>" data-table="post" data-uid="<?php echo $row['id'] ?>" data-field="title">

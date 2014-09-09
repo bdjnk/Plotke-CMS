@@ -5,7 +5,7 @@
 <?php
 	$result = get_pages();
 	$pcat = FIRST;
-	while ($row = $result->fetch_assoc()) {
+	while ($result and $row = $result->fetch_assoc()) {
 		$cat = $row['cat'];
 		if ($pcat != $cat) {
 			if ($pcat != FIRST) { ?>

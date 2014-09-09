@@ -273,6 +273,10 @@ div#edit li.live {
 	color: #fff;
 }
 
+.edit.hover {
+	background-color: #ffff00 !important;
+}
+
 /*""""""""""""""""""""""""""""*\
  * dropdown menu
  */

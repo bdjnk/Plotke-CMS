@@ -103,12 +103,42 @@ var create = null;
 
 function add()
 {
-	console.log("new "+create.attr("data-new"));
+	var type = create.attr("data-new");
+	console.log("new "+type);
+
+	var info = {};
+	switch(type)
+	{
+		case "category":	// need sort order
+			info.index = 1 + create.prevAll(".new").length;
+			break;
+		case "page":			// need category uid
+			info.index = 1 + create.prevAll(".new").length;
+			info.cid = create.parents("dl").children("dt.menu").attr("data-uid");
+			break;
+		case "post":			// need page & author uids
+			info.pid = create.attr("data-pid");
+			break;
+	}
 	$.ajax({
 		url: "lib/save.php",
 		data: {
 			action: "create",
-			table: create.attr("data-new")	
+			table: type,
+			info: info
+		},
+		type: "POST",
+		success: function()
+		{
+			console.log("success");
+		},
+		error: function()
+		{
+			console.log("error");
+		},
+		complete: function()
+		{
+			console.log("finished");
 		}
 	});
 }
@@ -121,7 +151,11 @@ var drop = null;
  */
 $(document).ready(function()
 {
-	$(".edit").click(edit);
+	$(".edit").click(edit).hover(
+			function() {
+				if (ctrlDown) { $(this).addClass("hover"); }
+			},
+			function() { $(this).removeClass("hover"); })
 
 	var bad = $(".edit.html");
 	for (var i = 0; i < bad.length; i++)
@@ -187,10 +221,41 @@ $(document).ready(function()
 		drop = $(this);
 		if (drop.hasClass("delete"))
 		{
-			if (drag.parent().hasClass("post"))
+			var type = drag.attr("data-table");
+			var uid = drag.attr("data-uid");
+			switch(type)
 			{
-				drag.parent().remove();
+				case "post":
+					drag.parent().remove();
+					break;
+				case "page":
+					drag.remove();
+					break;
+				case "category":
+					drag.remove();
+					break;
 			}
+			$.ajax({
+				url: "lib/save.php",
+				data: {
+					action: "delete",
+					table: type,
+					uid: uid
+				},
+				type: "POST",
+				success: function()
+				{
+					console.log("success");
+				},
+				error: function()
+				{
+					console.log("error");
+				},
+				complete: function()
+				{
+					console.log("finished");
+				}
+			});
 		}
 	}).mouseover(function()
 	{
